@@ -1,5 +1,12 @@
+import ImageUpload from "../component/ImageUpload";
+
 const CreateProductPage = () => {
-  return <div>create products</div>;
+  return (
+    <div>
+      {/* product form */}
+      <ImageUpload />
+    </div>
+  );
 };
 
 export default CreateProductPage;
