@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Button } from "@/components/ui/button";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Dashboard from "./components/admin/pages/Dashboard";
 import CreateProductPage from "./components/admin/pages/CreateProductPage";
 import ProductsPage from "./components/admin/pages/ProductsPage";
@@ -26,7 +26,7 @@ const App = () => {
           element={authUser ? <ProductsPage /> : <Navigate to="/login" />}
         />
         <Route
-          path="/product/create"
+          path="/products/create"
           element={authUser ? <CreateProductPage /> : <Navigate to="/login" />}
         />
       </Route>

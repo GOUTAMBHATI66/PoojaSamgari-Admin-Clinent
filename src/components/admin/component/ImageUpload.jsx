@@ -49,6 +49,7 @@ const ImageUpload = () => {
 
       {uploadStatus && (
         <img
+          // src={process.env.backendUrl + uploadStatus}
           src={uploadStatus}
           alt="Image"
           className="w-20 h-20 object-contain"
