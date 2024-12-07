@@ -1,59 +1,58 @@
 import React from "react";
 import "./App.css";
-import { Button } from "@/components/ui/button";
 import { Navigate, Route, Routes } from "react-router-dom";
-import Dashboard from "./components/admin/pages/Dashboard";
+import Dashboard from "./components/admin/pages/DashboardPage";
 import CreateProductPage from "./components/admin/pages/CreateProductPage";
 import ProductsPage from "./components/admin/pages/ProductsPage";
 import Layout from "./components/admin/layout";
 import LandingPage from "./components/shared/LandingPage";
 import OrderPage from "./components/admin/pages/OrderPage";
 import ProtectedRoute from "./components/admin/component/ProtectedRoute";
+import HomePage from "./components/client/HomePage";
 ``;
 const App = () => {
-  const authUser = "sskakla";
   return (
     <Routes>
-      <Route
-        path="/login"
-        element={authUser ? <Navigate to={"/"} /> : <LandingPage />}
-      />
+      <Route path="/login" element={<LandingPage />} />
 
       {/* Admin Routes */}
-      <Route path="/" element={<Layout />}>
+      <Route path="/admin" element={<Layout />}>
         <Route
-          path="/"
-          element={authUser ? 
-          <ProtectedRoute adminOnly>
-            <Dashboard />
-          </ProtectedRoute>
-          : <Navigate to="/login" />}
+          path="/admin"
+          element={
+            <ProtectedRoute adminOnly>
+              <Dashboard />
+            </ProtectedRoute>
+          }
         />
         <Route
-          path="/products"
-          element={authUser ? 
+          path="/admin/products"
+          element={
             <ProtectedRoute adminOnly>
-            <ProductsPage /> 
-          </ProtectedRoute>
-          :  <Navigate to="/login" />}
+              <ProductsPage />
+            </ProtectedRoute>
+          }
         />
         <Route
-          path="/products/create"
-          element={authUser ?
+          path="/admin/products/create"
+          element={
             <ProtectedRoute adminOnly>
-            <CreateProductPage />
-          </ProtectedRoute>
-          : <Navigate to="/login" />}
+              <CreateProductPage />
+            </ProtectedRoute>
+          }
         />
         <Route
-          path="/orders"
-          element={authUser ? 
+          path="/admin/orders"
+          element={
             <ProtectedRoute adminOnly>
-            <OrderPage />
-          </ProtectedRoute>
-           : <Navigate to="/login" />}
+              <OrderPage />
+            </ProtectedRoute>
+          }
         />
       </Route>
+
+      {/* client routes */}
+      <Route path="/" element={<HomePage />} />
     </Routes>
   );
 };

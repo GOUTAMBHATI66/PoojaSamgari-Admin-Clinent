@@ -1,39 +1,35 @@
-import AxiosBase from '@/lib/axios';
-import React, { createContext, useState, useEffect } from 'react';
+import AxiosBase from "@/lib/axios";
+import React, { createContext, useState, useEffect, useContext } from "react";
 
-const AuthContext = createContext()
+const AuthContext = createContext(null);
 
 export const MyProvider = ({ children }) => {
+  const [authUser, setAuthUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-    const [authUser, setAuthUser] = useState(null)
-    const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(() =>  {
-
-      async function fetchData() {
-        try {
-          const {data} = await AxiosBase.get("/auth/me",{
-            credentials: "include",
-          });
-  
-        } catch (error) {
-           setAuthUser(null);
-        }
-        finally {
-          setIsLoading(false);
-        }
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { data } = await AxiosBase.get("/auth/me");
+        setAuthUser(data);
+      } catch (error) {
+        setAuthUser(null);
+      } finally {
+        setIsLoading(false);
       }
+    }
 
-      fetchData()
-    
-    }, [])
-    
-    
-    return (
-      <AuthContext.Provider value={{ authUser, setAuthUser, isLoading }}>
-        {children}
-      </AuthContext.Provider>
-    );
-  };
+    fetchData();
+  }, []);
 
-  export default AuthContext;
+  return (
+    <AuthContext.Provider value={{ authUser, setAuthUser, isLoading }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => {
+  if (AuthContext === null) return;
+  return useContext(AuthContext);
+};

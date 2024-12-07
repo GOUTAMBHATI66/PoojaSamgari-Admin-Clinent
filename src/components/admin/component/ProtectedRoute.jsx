@@ -1,9 +1,8 @@
-import AuthContext from "@/components/context/AuthContext";
-import React, { useContext } from "react";
+import { useAuth } from "@/components/context/AuthContext";
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children, adminOnly = false }) => {
-  const { authUser, isLoading } = useContext(AuthContext)
+  const { authUser, isLoading } = useAuth();
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -18,4 +17,4 @@ const ProtectedRoute = ({ children, adminOnly = false }) => {
   return children;
 };
 
-export default ProtectedRoute;
+export default ProtectedRoute;

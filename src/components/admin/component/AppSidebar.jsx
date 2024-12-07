@@ -14,47 +14,46 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { TbCategoryPlus } from "react-icons/tb";
 import { BsBarChartLine } from "react-icons/bs";
 import { LuClipboardPen } from "react-icons/lu";
+import { Loader, LucideLogOut } from "lucide-react";
+import { useState } from "react";
 
 export function AppSidebar() {
   const items = [
     {
       title: "Dashboard",
-      url: "/",
+      url: "/admin",
       icon: BsBarChartLine,
     },
     {
       title: "Products",
-      url: "/products",
+      url: "/admin/products",
       icon: TbCategoryPlus,
     },
     {
       title: "Orders",
-      url: "/orders",
+      url: "/admin/orders",
       icon: LuClipboardPen,
     },
   ];
 
   const navigate = useNavigate();
+  const [isPending, setisPending] = useState(false);
 
   const handleLogout = (e) => {
     e.preventDefault();
   };
 
   return (
-    <Sidebar
-      collapsible="icon"
-      variant="floating"
-      className="bg-gray-100 dark:bg-gray-900"
-    >
+    <Sidebar collapsible="icon" variant="floating" className="bg-secondary">
       <SidebarContent>
-        <SidebarGroup className="border border-green-500">
-          <SidebarGroupLabel className="text-xl text-gray-800 dark:text-gray-200">
-            Admin Panel
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-xl text-red-400 ">
+            Shree Admin
           </SidebarGroupLabel>
-          <SidebarGroupContent className="py-3 border border-red-500">
+          <SidebarGroupContent className="py-3  ">
             <SidebarSeparator />
 
-            <SidebarMenu className="py-2 flex flex-col border border-black items-stretch justify-between">
+            <SidebarMenu className="py-2 flex flex-col items-stretch justify-between">
               {items.map((item) => {
                 const location = useLocation();
                 const isActive = location.pathname === item.url;
@@ -84,12 +83,19 @@ export function AppSidebar() {
                   </SidebarMenuItem>
                 );
               })}
-              logOut
             </SidebarMenu>
-
-            <span className="text-end">LOGOUT</span>
           </SidebarGroupContent>
         </SidebarGroup>
+        <SidebarFooter className="mt-0">
+          <SidebarMenuButton onClick={handleLogout}>
+            {isPending ? (
+              <Loader className="animate-spin" size={15} />
+            ) : (
+              <LucideLogOut size={16} />
+            )}{" "}
+            <span>Logout</span>
+          </SidebarMenuButton>
+        </SidebarFooter>
       </SidebarContent>
     </Sidebar>
   );
