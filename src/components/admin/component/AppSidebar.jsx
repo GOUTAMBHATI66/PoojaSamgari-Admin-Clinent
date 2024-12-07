@@ -13,6 +13,8 @@ import {
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { TbCategoryPlus } from "react-icons/tb";
 import { BsBarChartLine } from "react-icons/bs";
+import { LuClipboardPen } from "react-icons/lu";
+
 export function AppSidebar() {
   const items = [
     {
@@ -25,9 +27,15 @@ export function AppSidebar() {
       url: "/products",
       icon: TbCategoryPlus,
     },
+    {
+      title: "Orders",
+      url: "/orders",
+      icon: LuClipboardPen,
+    },
   ];
 
   const navigate = useNavigate();
+
   const handleLogout = (e) => {
     e.preventDefault();
   };
@@ -39,14 +47,14 @@ export function AppSidebar() {
       className="bg-gray-100 dark:bg-gray-900"
     >
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-lg text-gray-800 dark:text-gray-200">
+        <SidebarGroup className="border border-green-500">
+          <SidebarGroupLabel className="text-xl text-gray-800 dark:text-gray-200">
             Admin Panel
           </SidebarGroupLabel>
-          <SidebarGroupContent className="py-3">
+          <SidebarGroupContent className="py-3 border border-red-500">
             <SidebarSeparator />
 
-            <SidebarMenu>
+            <SidebarMenu className="py-2 flex flex-col border border-black items-stretch justify-between">
               {items.map((item) => {
                 const location = useLocation();
                 const isActive = location.pathname === item.url;
@@ -56,14 +64,14 @@ export function AppSidebar() {
                     <SidebarMenuButton asChild isActive={isActive}>
                       <Link to={item.url}>
                         <item.icon
-                          className={`${
-                            isActive ? "text-blue-500" : "text-gray-700"
+                          className={` ${
+                            isActive ? "text-blue-500 " : "text-gray-700"
                           } dark:${
                             isActive ? "text-blue-300" : "text-gray-300"
                           }`}
                         />
                         <span
-                          className={`text-md font-semibold ${
+                          className={`text-base font-semibold ${
                             isActive
                               ? "text-blue-600 dark:text-blue-400"
                               : "text-gray-800 dark:text-gray-200"
@@ -76,7 +84,10 @@ export function AppSidebar() {
                   </SidebarMenuItem>
                 );
               })}
+              logOut
             </SidebarMenu>
+
+            <span className="text-end">LOGOUT</span>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
