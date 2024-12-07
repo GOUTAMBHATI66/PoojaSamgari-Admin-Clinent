@@ -1,12 +1,14 @@
+import { Button } from "@/components/ui/button";
 import AxiosBase from "@/lib/axios";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { CiImageOn } from "react-icons/ci";
 
-const ImageUpload = () => {
-  const [selectedFile, setSelectedFile] = useState(null); // Store selected file
-  const [uploadStatus, setUploadStatus] = useState(""); // Store upload status or URL
-
+const ImageUpload = ({ onAddImage }) => {
+  const imgRef = useRef(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [uploadStatus, setUploadStatus] = useState("");
   const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]); // Update selected file state
+    setSelectedFile(event.target.files[0]);
   };
 
   const handleUpload = async (event) => {
@@ -25,7 +27,7 @@ const ImageUpload = () => {
           },
         }
       );
-      console.log(data);
+      onAddImage(data.data);
       setUploadStatus(data.data);
     } catch (error) {
       console.error("Error uploading image:", error.message);
@@ -36,20 +38,30 @@ const ImageUpload = () => {
   return (
     <div>
       <form onSubmit={handleUpload}>
-        <label htmlFor="imageUpload">Upload Product Image:</label>
+        <label htmlFor="imageUpload" className="block mb-2 text-gray-600 ">
+          Upload Images:
+        </label>
+        <CiImageOn
+          className=" text-blue-500 cursor-pointer"
+          size={100}
+          onClick={() => imgRef?.current?.click()}
+        />{" "}
         <input
+          ref={imgRef}
           type="file"
           name="image"
           id="imageUpload"
           accept="image/*"
           onChange={handleFileChange}
+          className="hidden"
         />
-        <button type="submit">Upload</button>
+        <Button disable={selectedFile === ""} variant="outline" type="submit">
+          Upload
+        </Button>
       </form>
 
       {uploadStatus && (
         <img
-          // src={process.env.backendUrl + uploadStatus}
           src={uploadStatus}
           alt="Image"
           className="w-20 h-20 object-contain"
