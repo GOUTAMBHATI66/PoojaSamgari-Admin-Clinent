@@ -6,7 +6,7 @@ const ProductsPage = () => {
   return (
     <main>
       <Button size="lg" onClick={() => navigate("/admin/products/create")}>
-        Create Product
+        Create Producta
       </Button>
       <section>dispaly all prducts here.</section>
     </main>

@@ -3,10 +3,12 @@ import AxiosBase from "@/lib/axios";
 import { useNavigate } from "react-router-dom";
 import ImageUpload from "./ImageUpload";
 import toast from "react-hot-toast";
+import { Button } from "@/components/ui/button";
 
 export default function ProductForm() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
+
   const [productData, setProductData] = useState({
     name: "",
     price: 0,
@@ -32,7 +34,7 @@ export default function ProductForm() {
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target;    
     setProductData({ ...productData, [name]: value });
   };
 
@@ -69,50 +71,48 @@ export default function ProductForm() {
       {step === 1 && (
         <div>
           <h2 className="text-2xl font-semibold mb-4">
-            Step 1: Product Details
+            Step 1 : Product Details
           </h2>
+          <span>Product Name : </span>
           <input
             type="text"
             name="name"
+            required
             value={productData.name}
             onChange={handleInputChange}
-            placeholder="Product Name"
-            className="w-full p-3 border rounded mb-4"
+            placeholder="Add product name..."
+            className="w-full p-3 border rounded mt-1 mb-4 outline-none"
           />
+
+          <span>Product Price : </span>
           <input
             type="number"
             name="price"
             value={productData.price}
             onChange={handleInputChange}
-            placeholder="Price"
-            className="w-full p-3 border rounded mb-4"
+            placeholder="Price..."
+            className="w-full p-3 border rounded mt-1 mb-4 outline-none"
           />
-          <span>Discount Percent is optional</span>
+          <span>Discount Percent* (optional)</span>
           <input
             type="number"
             name="discountPercent"
             value={productData.discountPercent}
             onChange={handleInputChange}
-            placeholder="Discount Percent"
-            className="w-full p-3 border rounded mb-4"
+            placeholder="Add discount Percent"
+            className="w-full p-3 border rounded mt-1 mb-4 outline-none"
           />
+
+          <span>Product Description : </span>
           <textarea
             name="description"
             value={productData.description}
             onChange={handleInputChange}
-            placeholder="Description"
-            className="w-full p-3 border rounded mb-4"
+            placeholder="Write description here..."
+            className="w-full p-3 border rounded mt-1 mb-4 outline-none"
           ></textarea>
-          <div className="flex justify-between">
-            <button className="bg-gray-300 px-4 py-2 rounded" disabled>
-              Back
-            </button>
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded"
-              onClick={handleNext}
-            >
-              Next
-            </button>
+          <div className="flex justify-end ">
+            <Button variant="custome" disabled={!productData.price || !productData.name || !productData.description} onClick={handleNext}>Next</Button>
           </div>
         </div>
       )}
@@ -120,7 +120,7 @@ export default function ProductForm() {
       {step === 2 && (
         <div>
           <h2 className="text-2xl font-semibold mb-4">
-            Step 2: Product imageUrl and Stock
+            Step 2 : Product imageUrl and Stock
           </h2>
           <ImageUpload
             onAddImage={(img) =>
@@ -128,7 +128,7 @@ export default function ProductForm() {
             }
           />
           <label htmlFor="stock">
-            {" "}
+            
             Add a Stock
             <input
               id="stock"
@@ -137,34 +137,26 @@ export default function ProductForm() {
               value={productData.stock}
               onChange={handleInputChange}
               placeholder="N0. of Stock"
-              className="w-full p-3 border rounded mb-4"
+              className="w-full p-3 border rounded mt-1 mb-4 outline-none"
             />
           </label>
           <label htmlFor="category">
-            {" "}
-            Add a Category
+           
+            Category Name
             <input
               id="category"
+              type="text"
               name="category"
               value={productData.category}
               onChange={handleInputChange}
-              placeholder="N0. of Stock"
-              className="w-full p-3 border rounded mb-4"
+              placeholder="Add a category"
+              className="w-full p-3 border rounded mt-1 mb-4 outline-none"
             />
           </label>
           <div className="flex justify-between">
-            <button
-              className="bg-gray-300 px-4 py-2 rounded"
-              onClick={handleBack}
-            >
-              Back
-            </button>
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded"
-              onClick={handleNext}
-            >
-              Next
-            </button>
+            <Button onClick={handleBack}>Back</Button>
+            <Button variant="custome" disabled={!productData.category |!productData.imageUrl || !productData.stock}  onClick={handleNext}>Next</Button>
+           
           </div>
         </div>
       )}
@@ -172,12 +164,14 @@ export default function ProductForm() {
       {step === 3 && (
         <div>
           <h2 className="text-2xl font-semibold mb-4">
-            Step 3: Preview and Publish
+            Step 3 : Preview and Publish
           </h2>
-          <div className="p-4 border rounded mb-4">
-            <h3 className="text-lg font-bold">Name:{productData.name}</h3>
-            <p>Price: ${productData.price}</p>
-            <p>{productData.description}</p>
+          <div className="flex flex-col gap-2 p-4 border rounded mb-4">
+            <h3 className="text-lg font-bold">Name : <span className=" font-normal">{productData.name}</span></h3>
+            <p className="text-lg font-bold">Price : <span className=" text-green-600 ">&#8377; {productData.price}</span></p>
+            <p className="text-lg font-bold">Category : <span className= "">{productData.category}</span></p>
+            <p className="text-lg font-bold">Discount : <span className=" text-green-600 ">{productData.discountPercent} %</span></p>
+            <p className="text-lg font-normal">{productData.description}</p>
             {productData.imageUrl && (
               <img
                 src={productData.imageUrl}
@@ -185,15 +179,10 @@ export default function ProductForm() {
                 className="w-full h-48 object-cover my-4"
               />
             )}
-            <p>Total Stock: {productData.stock}</p>
+            <p className="text-lg font-bold">Total Stock : {productData.stock}</p>
           </div>
           <div className="flex justify-between">
-            <button
-              className="bg-gray-300 px-4 py-2 rounded"
-              onClick={handleBack}
-            >
-              Back
-            </button>
+            <Button onClick={handleBack}>Back</Button>
             <button
               className="bg-green-500 text-white px-4 py-2 rounded"
               onClick={handlePublish}

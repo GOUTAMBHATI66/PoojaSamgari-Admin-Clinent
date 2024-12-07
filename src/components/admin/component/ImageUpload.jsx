@@ -9,6 +9,7 @@ const ImageUpload = ({ onAddImage }) => {
   const [uploadStatus, setUploadStatus] = useState("");
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
+
   };
 
   const handleUpload = async (event) => {
@@ -38,7 +39,7 @@ const ImageUpload = ({ onAddImage }) => {
   return (
     <div>
       <form onSubmit={handleUpload}>
-        <label htmlFor="imageUpload" className="block mb-2 text-gray-600 ">
+        <label htmlFor="imageUpload" className="block mb-2">
           Upload Images:
         </label>
         <CiImageOn
@@ -55,7 +56,7 @@ const ImageUpload = ({ onAddImage }) => {
           onChange={handleFileChange}
           className="hidden"
         />
-        <Button disable={selectedFile === ""} variant="outline" type="submit">
+        <Button disable={selectedFile === ""} variant="outline" type="submit" className="mb-4">
           Upload
         </Button>
       </form>

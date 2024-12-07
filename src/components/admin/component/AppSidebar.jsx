@@ -15,9 +15,14 @@ import { TbCategoryPlus } from "react-icons/tb";
 import { BsBarChartLine } from "react-icons/bs";
 import { LuClipboardPen } from "react-icons/lu";
 import { Loader, LucideLogOut } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { FaUserCircle } from "react-icons/fa";
+import { useAuth } from "@/components/context/AuthContext";
 
 export function AppSidebar() {
+
+  const {authUser} = useAuth();
+
   const items = [
     {
       title: "Dashboard",
@@ -46,9 +51,9 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon" variant="floating" className="bg-secondary">
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-xl text-red-400 ">
-            Shree Admin
+        <SidebarGroup className="h-full">
+          <SidebarGroupLabel className="text-xl uppercase font-serif  text-red-500">
+            Swastik
           </SidebarGroupLabel>
           <SidebarGroupContent className="py-3  ">
             <SidebarSeparator />
@@ -86,7 +91,19 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <SidebarFooter className="mt-0">
+        <footer className="mt-0">
+
+        <SidebarMenuButton asChild>
+              <div className="flex items-center">
+                <FaUserCircle className="w-16 h-16 text-gray-700" />
+                <span className="flex flex-col items-end">
+                  <p className="text-lg font-semibold text-gray-800">
+                    {authUser?.name || "User Name"}
+                  </p>
+                </span>
+              </div>
+            </SidebarMenuButton>
+          
           <SidebarMenuButton onClick={handleLogout}>
             {isPending ? (
               <Loader className="animate-spin" size={15} />
@@ -95,7 +112,7 @@ export function AppSidebar() {
             )}{" "}
             <span>Logout</span>
           </SidebarMenuButton>
-        </SidebarFooter>
+        </footer>
       </SidebarContent>
     </Sidebar>
   );
