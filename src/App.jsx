@@ -9,8 +9,10 @@ import LandingPage from "./components/shared/LandingPage";
 import OrderPage from "./components/admin/pages/OrderPage";
 import ProtectedRoute from "./components/admin/component/ProtectedRoute";
 import HomePage from "./components/client/HomePage";
+import useDynamicTitle from "./hooks/useDynamicTitle";
 ``;
 const App = () => {
+  useDynamicTitle();
   return (
     <Routes>
       <Route path="/login" element={<LandingPage />} />
