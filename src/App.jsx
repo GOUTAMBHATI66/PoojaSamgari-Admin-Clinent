@@ -10,6 +10,7 @@ import OrderPage from "./components/admin/pages/OrderPage";
 import ProtectedRoute from "./components/admin/component/ProtectedRoute";
 import HomePage from "./components/client/HomePage";
 import useDynamicTitle from "./hooks/useDynamicTitle";
+import EditProduct from "./components/admin/pages/EditProduct";
 ``;
 const App = () => {
   useDynamicTitle();
@@ -40,6 +41,14 @@ const App = () => {
           element={
             <ProtectedRoute adminOnly>
               <CreateProductPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/product/edit/:id"
+          element={
+            <ProtectedRoute adminOnly>
+              <EditProduct />
             </ProtectedRoute>
           }
         />
