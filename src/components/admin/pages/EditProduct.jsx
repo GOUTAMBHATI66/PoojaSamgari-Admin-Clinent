@@ -1,6 +1,30 @@
-import React from "react";
+import AxiosBase from "@/lib/axios";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 function EditProduct() {
+  const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const { id } = useParams();
+  const product = async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await AxiosBase.get(`api/admin/product/${id}`);
+      if (!data.success) throw new Error();
+      console.log(data);
+      setProducts(data.data);
+    } catch (error) {
+      console.log(error.message);
+      setProducts([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    product();
+  }, []);
+
   return (
     <div className="container mx-auto p-6 bg-white rounded shadow">
       <h3 className="text-2xl font-bold mb-6">Edit Product Details</h3>
@@ -8,18 +32,25 @@ function EditProduct() {
         {/* First Section: Product Name and Price */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <div>
-            <label htmlFor="productName" className="block text-base font-medium text-gray-700">
+            <label
+              htmlFor="productName"
+              className="block text-base font-medium text-gray-700"
+            >
               Product Name
             </label>
             <input
               type="text"
               id="productName"
+              value={product.category}
               placeholder="Enter product name"
               className="mt-1 block w-full px-2 py-1  outline-none rounded-sm border border-gray-700 shadow-sm  text-base"
             />
           </div>
           <div>
-            <label htmlFor="productPrice" className="block text-base font-medium text-gray-700">
+            <label
+              htmlFor="productPrice"
+              className="block text-base font-medium text-gray-700"
+            >
               Product Price
             </label>
             <input
@@ -31,10 +62,13 @@ function EditProduct() {
           </div>
         </div>
 
-         {/* Second Section: Stock and Category */}
-         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        {/* Second Section: Stock and Category */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <div>
-            <label htmlFor="stockQuantity" className="block text-base font-medium text-gray-700">
+            <label
+              htmlFor="stockQuantity"
+              className="block text-base font-medium text-gray-700"
+            >
               Stock Quantity
             </label>
             <input
@@ -45,7 +79,10 @@ function EditProduct() {
             />
           </div>
           <div>
-            <label htmlFor="category" className="block text-base font-medium text-gray-700">
+            <label
+              htmlFor="category"
+              className="block text-base font-medium text-gray-700"
+            >
               Category
             </label>
             <select
@@ -62,7 +99,10 @@ function EditProduct() {
 
         {/* Third Section: Description */}
         <div className="mb-6">
-          <label htmlFor="productDescription" className="block text-base font-medium text-gray-700">
+          <label
+            htmlFor="productDescription"
+            className="block text-base font-medium text-gray-700"
+          >
             Description
           </label>
           <textarea
@@ -101,8 +141,6 @@ function EditProduct() {
             </select>
           </div>
         </div> */}
-
-       
 
         {/* Submit Button */}
         <div>
