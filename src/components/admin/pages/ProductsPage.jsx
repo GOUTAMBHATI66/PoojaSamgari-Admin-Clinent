@@ -82,7 +82,10 @@ const ProductsPage = () => {
         All Products
       </h2>
 
-      {isLoading && <Skeleton className="h-20 w-full" />}
+      {isLoading &&
+        [...Array(4)].map((_, idx) => (
+          <Skeleton key={idx} className="h-10 my-2  rounded-lg w-full" />
+        ))}
 
       {!isLoading && products.length === 0 && (
         <p className="text-center text-2xl font-bold">
