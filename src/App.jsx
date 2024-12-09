@@ -45,7 +45,7 @@ const App = () => {
           }
         />
         <Route
-          path="/admin/product/edit/:id"
+          path="/admin/products/:id"
           element={
             <ProtectedRoute adminOnly>
               <EditProduct />
@@ -63,7 +63,7 @@ const App = () => {
       </Route>
 
       {/* client routes */}
-      <Route path="/" element={<Home/>} />
+      <Route path="/" element={<Home />} />
     </Routes>
   );
 };

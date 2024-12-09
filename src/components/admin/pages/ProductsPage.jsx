@@ -62,15 +62,15 @@ const ProductsPage = () => {
     productsArr();
   }, []);
 
-
   // delete a product
   const handleDeleteProduct = async (id) => {
     try {
-      const {data} = await AxiosBase.delete(`/api/admin/product/delete/${id}`)
+      const { data } = await AxiosBase.delete(
+        `/api/admin/product/delete/${id}`
+      );
       if (!data.success) throw new Error();
-      console.log(data)
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
 
     productsArr();
@@ -107,10 +107,12 @@ const ProductsPage = () => {
             {products.map((product, index) => (
               <TableRow key={product.id} className="cursor-pointer">
                 <TableCell className="text-xs">{index + 1}</TableCell>
-                <TableCell className="font-medium">{product.name}</TableCell>
+                <TableCell className="font-medium  capitalize">
+                  {product.name}
+                </TableCell>
                 <TableCell>&#8377;{product.price}</TableCell>
                 <TableCell>{product.stock}</TableCell>
-                <TableCell>{product.category}</TableCell>
+                <TableCell className="capitalize">{product.category}</TableCell>
                 <TableCell>
                   <div className="flex gap-5  items-center space-x-2">
                     <HoverCard>
@@ -118,7 +120,7 @@ const ProductsPage = () => {
                         <CiEdit
                           size={20}
                           onClick={() =>
-                            navigate(`/admin/product/edit/${product.slug}`)
+                            navigate(`/admin/products/${product.slug}`)
                           }
                         />
                       </HoverCardTrigger>

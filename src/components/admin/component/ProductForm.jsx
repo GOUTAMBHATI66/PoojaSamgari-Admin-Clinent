@@ -56,7 +56,7 @@ export default function ProductForm() {
         category: "",
       });
       setStep(1);
-      navigate("/products");
+      navigate("/admin/products");
     } catch (error) {
       if (error.response && error.response.data) {
         toast.error(

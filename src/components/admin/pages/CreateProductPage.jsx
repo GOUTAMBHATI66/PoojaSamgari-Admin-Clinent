@@ -5,7 +5,6 @@ const CreateProductPage = () => {
   return (
     <div>
       <ProductForm />
-      {/* <ImageUpload /> */}
     </div>
   );
 };
