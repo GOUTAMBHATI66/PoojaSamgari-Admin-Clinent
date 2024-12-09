@@ -8,9 +8,9 @@ import Layout from "./components/admin/layout";
 import LandingPage from "./components/shared/LandingPage";
 import OrderPage from "./components/admin/pages/OrderPage";
 import ProtectedRoute from "./components/admin/component/ProtectedRoute";
-import HomePage from "./components/client/HomePage";
 import useDynamicTitle from "./hooks/useDynamicTitle";
-``;
+import Home from "./components/client/home/Home";
+
 const App = () => {
   useDynamicTitle();
   return (
@@ -54,7 +54,7 @@ const App = () => {
       </Route>
 
       {/* client routes */}
-      <Route path="/" element={<HomePage />} />
+      <Route path="/" element={<Home/>} />
     </Routes>
   );
 };
