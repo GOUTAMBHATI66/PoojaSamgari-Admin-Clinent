@@ -15,17 +15,20 @@ import {
 } from "@/components/ui/hover-card";
 
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 import AxiosBase from "@/lib/axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   MdOutlinePublishedWithChanges,
   MdOutlineUnpublished,
@@ -40,22 +43,38 @@ const ProductsPage = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  // get all products
+  const productsArr = async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await AxiosBase.get("/api/admin/products");
+      if (!data.success) throw new Error();
+      setProducts(data.data);
+    } catch (error) {
+      console.log(error.message);
+      setProducts([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const product = async () => {
-      try {
-        setIsLoading(true);
-        const { data } = await AxiosBase.get("/api/admin/products");
-        if (!data.success) throw new Error();
-        setProducts(data.data);
-      } catch (error) {
-        console.log(error.message);
-        setProducts([]);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    product();
+    productsArr();
   }, []);
+
+
+  // delete a product
+  const handleDeleteProduct = async (id) => {
+    try {
+      const {data} = await AxiosBase.delete(`/api/admin/product/delete/${id}`)
+      if (!data.success) throw new Error();
+      console.log(data)
+    } catch (error) {
+      console.log(error.message)
+    }
+
+    productsArr();
+  };
 
   return (
     <main>
@@ -66,7 +85,7 @@ const ProductsPage = () => {
       {isLoading && <Skeleton className="h-20 w-full" />}
 
       {!isLoading && products.length === 0 && (
-        <p className="text-center">
+        <p className="text-center text-2xl font-bold">
           Currently, there are no products available.
         </p>
       )}
@@ -93,7 +112,7 @@ const ProductsPage = () => {
                 <TableCell>{product.stock}</TableCell>
                 <TableCell>{product.category}</TableCell>
                 <TableCell>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex gap-5  items-center space-x-2">
                     <HoverCard>
                       <HoverCardTrigger>
                         <CiEdit
@@ -106,21 +125,33 @@ const ProductsPage = () => {
                       <HoverCardContent>Edit</HoverCardContent>
                     </HoverCard>
 
-                    <Dialog>
-                      <DialogTrigger>
+                    <AlertDialog>
+                      <AlertDialogTrigger>
                         <MdDelete size={20} color="red" />
-                      </DialogTrigger>
-                      <DialogContent>
-                        <DialogHeader>
-                          <DialogTitle>Are you absolutely sure?</DialogTitle>
-                          <DialogDescription>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>
+                            Are you absolutely sure?
+                          </AlertDialogTitle>
+                          <AlertDialogDescription>
                             This action will permanently delete this product and
                             remove its data from our servers.
-                          </DialogDescription>
-                          <Button variant="destructive">Confirm</Button>
-                        </DialogHeader>
-                      </DialogContent>
-                    </Dialog>
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction>
+                            <Button
+                              onClick={() => handleDeleteProduct(product.id)}
+                              variant="destructive"
+                            >
+                              Confirm
+                            </Button>
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </div>
                 </TableCell>
                 <TableCell>

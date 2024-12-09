@@ -9,13 +9,9 @@ import LandingPage from "./components/shared/LandingPage";
 import OrderPage from "./components/admin/pages/OrderPage";
 import ProtectedRoute from "./components/admin/component/ProtectedRoute";
 import useDynamicTitle from "./hooks/useDynamicTitle";
-<<<<<<< HEAD
 import Home from "./components/client/home/Home";
-
-=======
 import EditProduct from "./components/admin/pages/EditProduct";
-``;
->>>>>>> 5f7433a020defabc299f2499dd0e5ab42b2c1f85
+
 const App = () => {
   useDynamicTitle();
   return (
