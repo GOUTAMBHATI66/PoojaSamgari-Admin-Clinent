@@ -34,7 +34,7 @@ export default function ProductForm() {
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;    
+    const { name, value } = e.target;
     setProductData({ ...productData, [name]: value });
   };
 
@@ -56,7 +56,7 @@ export default function ProductForm() {
         category: "",
       });
       setStep(1);
-      navigate("?step=1");
+      navigate("/products");
     } catch (error) {
       if (error.response && error.response.data) {
         toast.error(
@@ -112,7 +112,17 @@ export default function ProductForm() {
             className="w-full p-3 border rounded mt-1 mb-4 outline-none"
           ></textarea>
           <div className="flex justify-end ">
-            <Button variant="custome" disabled={!productData.price || !productData.name || !productData.description} onClick={handleNext}>Next</Button>
+            <Button
+              variant="custome"
+              disabled={
+                !productData.price ||
+                !productData.name ||
+                !productData.description
+              }
+              onClick={handleNext}
+            >
+              Next
+            </Button>
           </div>
         </div>
       )}
@@ -128,7 +138,6 @@ export default function ProductForm() {
             }
           />
           <label htmlFor="stock">
-            
             Add a Stock
             <input
               id="stock"
@@ -141,7 +150,6 @@ export default function ProductForm() {
             />
           </label>
           <label htmlFor="category">
-           
             Category Name
             <input
               id="category"
@@ -155,8 +163,16 @@ export default function ProductForm() {
           </label>
           <div className="flex justify-between">
             <Button onClick={handleBack}>Back</Button>
-            <Button variant="custome" disabled={!productData.category |!productData.imageUrl || !productData.stock}  onClick={handleNext}>Next</Button>
-           
+            <Button
+              variant="custome"
+              disabled={
+                !productData.category | !productData.imageUrl ||
+                !productData.stock
+              }
+              onClick={handleNext}
+            >
+              Next
+            </Button>
           </div>
         </div>
       )}
@@ -167,10 +183,24 @@ export default function ProductForm() {
             Step 3 : Preview and Publish
           </h2>
           <div className="flex flex-col gap-2 p-4 border rounded mb-4">
-            <h3 className="text-lg font-bold">Name : <span className=" font-normal">{productData.name}</span></h3>
-            <p className="text-lg font-bold">Price : <span className=" text-green-600 ">&#8377; {productData.price}</span></p>
-            <p className="text-lg font-bold">Category : <span className= "">{productData.category}</span></p>
-            <p className="text-lg font-bold">Discount : <span className=" text-green-600 ">{productData.discountPercent} %</span></p>
+            <h3 className="text-lg font-bold">
+              Name : <span className=" font-normal">{productData.name}</span>
+            </h3>
+            <p className="text-lg font-bold">
+              Price :{" "}
+              <span className=" text-green-600 ">
+                &#8377; {productData.price}
+              </span>
+            </p>
+            <p className="text-lg font-bold">
+              Category : <span className="">{productData.category}</span>
+            </p>
+            <p className="text-lg font-bold">
+              Discount :{" "}
+              <span className=" text-green-600 ">
+                {productData.discountPercent} %
+              </span>
+            </p>
             <p className="text-lg font-normal">{productData.description}</p>
             {productData.imageUrl && (
               <img
@@ -179,7 +209,9 @@ export default function ProductForm() {
                 className="w-full h-48 object-cover my-4"
               />
             )}
-            <p className="text-lg font-bold">Total Stock : {productData.stock}</p>
+            <p className="text-lg font-bold">
+              Total Stock : {productData.stock}
+            </p>
           </div>
           <div className="flex justify-between">
             <Button onClick={handleBack}>Back</Button>
