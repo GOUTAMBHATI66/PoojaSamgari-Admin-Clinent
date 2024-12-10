@@ -37,6 +37,7 @@ import { IoMdAdd } from "react-icons/io";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { Skeleton } from "@/components/ui/skeleton";
+import toast from "react-hot-toast";
 
 const ProductsPage = () => {
   const navigate = useNavigate();
@@ -69,6 +70,7 @@ const ProductsPage = () => {
         `/api/admin/product/delete/${id}`
       );
       if (!data.success) throw new Error();
+      toast.error("Product deleted")
     } catch (error) {
       console.log(error.message);
     }
@@ -78,7 +80,7 @@ const ProductsPage = () => {
 
   return (
     <main>
-      <h2 className="text-black font-bold text-2xl mb-4  bg-seondary text-center py-2 rounded-sm">
+      <h2 className="text-black bg-secondary font-bold text-2xl mb-4  bg-seondary text-center py-2 rounded-sm">
         All Products
       </h2>
 

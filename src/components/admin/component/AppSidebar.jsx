@@ -51,9 +51,9 @@ export function AppSidebar() {
     <Sidebar
       collapsible="icon"
       variant="floating"
-      className="bg-secondary border-r-2   ring-0"
+      className="bg-secondary  ring-0"
     >
-      <SidebarContent className="border-0  ring-0 ">
+      <SidebarContent className="ring-0 ">
         <SidebarGroup className="h-full">
           <SidebarGroupLabel className="text-xl uppercase font-serif  text-red-500">
             Swastik

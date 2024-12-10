@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { X } from "lucide-react";
 import ImageUpload from "../component/ImageUpload";
+import toast from "react-hot-toast";
 
 function EditProduct() {
   const navigate = useNavigate();
@@ -50,6 +51,7 @@ function EditProduct() {
         singleProduct
       );
       if (!data.success) throw new Error("Failed to update product");
+      toast.success(data.message || "Product updated successfully")
 
       navigate("/admin/products");
     } catch (error) {
@@ -58,6 +60,7 @@ function EditProduct() {
       setIsSubmitting(false);
     }
   };
+
   const handleRemoveImage = async (e) => {
     e.preventDefault();
     if (!singleProduct) return;
@@ -91,7 +94,7 @@ function EditProduct() {
   return (
     <div className="container mx-auto p-6  rounded shadow">
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-2xl font-bold">Edit Product Details</h3>
+        <h3 className="text-2xl font-bold ">Edit Product Details</h3>
         <Button
           disabled={!isFormChanged || !isFormValid || isSubmitting}
           onClick={handleSubmit}

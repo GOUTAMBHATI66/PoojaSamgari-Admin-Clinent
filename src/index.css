@@ -82,7 +82,7 @@ body {
 @layer base {
   :root {
     /* General Theme Colors */
-    --background: #fff8e5; /* Soft yellow */
+    --background: #FFF9ED; /* Soft yellow */
     --foreground: #3e2723; /* Dark brown for contrast */
     --card: #ffefd3; /* Light orange */
     --card-foreground: #3e2723;
@@ -92,7 +92,7 @@ body {
     /* Primary Theme Colors */
     --primary: #ff6f00; /* Bright orange */
     --primary-foreground: #fff3e0;
-    --secondary: #ffd600; /* Vibrant yellow */
+    --secondary: #f8ebe6; /* Vibrant yellow */
     --secondary-foreground: #3e2723;
 
     /* Muted Colors */

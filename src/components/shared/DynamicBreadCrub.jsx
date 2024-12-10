@@ -26,15 +26,13 @@ export default function DynamicBreadcrumb() {
   }, [pathname]);
 
   return (
-    <Breadcrumb className="flex items-center   space-x-2 ">
-      <BreadcrumbList>
-        <BreadcrumbItem className="text-lg;">
-          <BreadcrumbLink href="/">Home</BreadcrumbLink>
-        </BreadcrumbItem>
+    <Breadcrumb className=" flex items-center my-4 mx-2 space-x-2 ">
+      <BreadcrumbList className=" flex ">
+       
         {pathSegments.map((segment, index) => (
           <BreadcrumbItem
             key={segment.href}
-            className="flex items-center truncate capitalize justify-center text-md"
+            className="flex items-center truncate capitalize justify-center text-xs sm:text-sm md:text-lg text-black" 
           >
             <BreadcrumbSeparator />
             {index === pathSegments.length - 1 ? (
@@ -42,7 +40,7 @@ export default function DynamicBreadcrumb() {
                 {segment.name}
               </span>
             ) : (
-              <Link to={segment.href} className="">
+              <Link to={segment.href} className="hover:underline hover:font-medium ">
                 {segment.name}
               </Link>
             )}
