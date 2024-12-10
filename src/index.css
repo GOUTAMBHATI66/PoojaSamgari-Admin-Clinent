@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,7 +7,7 @@ body {
   min-height: 100vh;
 }
 
-@layer base {
+/* @layer base {
   :root {
     --background: #FFFFFF;
     --foreground: #070D16;
@@ -77,6 +76,111 @@ body {
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+} */
+
+@layer base {
+  :root {
+    /* General Theme Colors */
+    --background: #fff8e5; /* Soft yellow */
+    --foreground: #3e2723; /* Dark brown for contrast */
+    --card: #ffefd3; /* Light orange */
+    --card-foreground: #3e2723;
+    --popover: #fff3e0; /* Pale orange */
+    --popover-foreground: #3e2723;
+
+    /* Primary Theme Colors */
+    --primary: #ff6f00; /* Bright orange */
+    --primary-foreground: #fff3e0;
+    --secondary: #ffd600; /* Vibrant yellow */
+    --secondary-foreground: #3e2723;
+
+    /* Muted Colors */
+    --muted: #fff3e0; /* Soft pale orange */
+    --muted-foreground: #5d4037; /* Medium brown */
+
+    /* Accent Colors */
+    --accent: #e53935; /* Red */
+    --accent-foreground: #ffffff; /* White for contrast */
+
+    /* Destructive Action Colors */
+    --destructive: #b71c1c; /* Dark red */
+    --destructive-foreground: #ffffff;
+
+    /* Utility Colors */
+    --border: #ffab40; /* Light orange */
+    --input: #fff3e0;
+    --ring: #ff6f00; /* Bright orange */
+
+    /* Chart Colors */
+    --chart-1: #ffa000; /* Orange */
+    --chart-2: #ffc107; /* Yellow */
+    --chart-3: #d84315; /* Deep orange */
+    --chart-4: #fbc02d; /* Golden yellow */
+    --chart-5: #e64a19; /* Dark red-orange */
+
+    /* Radius */
+    --radius: 0.5rem;
+
+    /* Sidebar Colors */
+    --sidebar-background: #fff8e5;
+    --sidebar-foreground: #3e2723;
+    --sidebar-primary: #ff6f00;
+    --sidebar-primary-foreground: #fff3e0;
+    --sidebar-accent: #ffd600;
+    --sidebar-accent-foreground: #3e2723;
+    --sidebar-border: #ffab40;
+    --sidebar-ring: #e53935;
+  }
+
+  .dark {
+    /* Dark Mode Colors */
+    --background: #3e2723; /* Dark brown */
+    --foreground: #fff3e0; /* Pale orange */
+    --card: #5d4037; /* Medium brown */
+    --card-foreground: #fff3e0;
+    --popover: #4e342e; /* Deep brown */
+    --popover-foreground: #fff3e0;
+
+    /* Primary Theme Colors */
+    --primary: #ff8f00; /* Bright orange */
+    --primary-foreground: #3e2723;
+    --secondary: #ffc107; /* Yellow */
+    --secondary-foreground: #3e2723;
+
+    /* Muted Colors */
+    --muted: #4e342e; /* Deep brown */
+    --muted-foreground: #fff3e0;
+
+    /* Accent Colors */
+    --accent: #d32f2f; /* Red */
+    --accent-foreground: #fff3e0;
+
+    /* Destructive Action Colors */
+    --destructive: #b71c1c; /* Dark red */
+    --destructive-foreground: #fff3e0;
+
+    /* Utility Colors */
+    --border: #5d4037; /* Medium brown */
+    --input: #4e342e;
+    --ring: #ff8f00; /* Bright orange */
+
+    /* Chart Colors */
+    --chart-1: #ff7043; /* Orange */
+    --chart-2: #ffc107; /* Yellow */
+    --chart-3: #f4511e; /* Deep orange */
+    --chart-4: #ffb300; /* Golden yellow */
+    --chart-5: #e64a19; /* Dark red-orange */
+
+    /* Sidebar Colors */
+    --sidebar-background: #3e2723;
+    --sidebar-foreground: #fff3e0;
+    --sidebar-primary: #ff6f00;
+    --sidebar-primary-foreground: #fff3e0;
+    --sidebar-accent: #ffd600;
+    --sidebar-accent-foreground: #3e2723;
+    --sidebar-border: #5d4037;
+    --sidebar-ring: #ff8f00;
   }
 }
 

@@ -1,4 +1,9 @@
 import { Button } from "@/components/ui/button";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import AxiosBase from "@/lib/axios";
 import { useState, useRef } from "react";
 import { CiImageOn } from "react-icons/ci";
@@ -9,7 +14,6 @@ const ImageUpload = ({ onAddImage }) => {
   const [uploadStatus, setUploadStatus] = useState("");
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
-
   };
 
   const handleUpload = async (event) => {
@@ -37,16 +41,21 @@ const ImageUpload = ({ onAddImage }) => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleUpload}>
+    <div className="w-full ">
+      <form onSubmit={handleUpload} className="w-full">
         <label htmlFor="imageUpload" className="block mb-2">
-          Upload Images:
+          Select a product image to upload:
         </label>
-        <CiImageOn
-          className=" text-blue-500 cursor-pointer"
-          size={100}
-          onClick={() => imgRef?.current?.click()}
-        />{" "}
+        <HoverCard>
+          <HoverCardTrigger>
+            <CiImageOn
+              className=" text-blue-500 cursor-pointer"
+              size={100}
+              onClick={() => imgRef?.current?.click()}
+            />
+          </HoverCardTrigger>
+          <HoverCardContent>Select image.</HoverCardContent>
+        </HoverCard>
         <input
           ref={imgRef}
           type="file"
@@ -56,16 +65,22 @@ const ImageUpload = ({ onAddImage }) => {
           onChange={handleFileChange}
           className="hidden"
         />
-        <Button disable={selectedFile === ""} variant="outline" type="submit" className="mb-4">
-          Upload
-        </Button>
+        {selectedFile && (
+          <Button
+            disable={selectedFile === "" || !uploadStatus}
+            type="submit"
+            className="mb-4"
+          >
+            Upload
+          </Button>
+        )}
       </form>
 
       {uploadStatus && (
         <img
           src={uploadStatus}
           alt="Image"
-          className="w-20 h-20 object-contain"
+          className="w-32  h-32 rounded-lg object-fill"
         />
       )}
     </div>

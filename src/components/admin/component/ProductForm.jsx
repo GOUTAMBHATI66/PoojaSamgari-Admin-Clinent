@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import ImageUpload from "./ImageUpload";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
+import { MdArrowBack, MdOutlinePublishedWithChanges } from "react-icons/md";
+import { TbArrowLeftFromArc, TbArrowRightFromArc } from "react-icons/tb";
+import { ArrowRight } from "lucide-react";
 
 export default function ProductForm() {
   const navigate = useNavigate();
@@ -67,7 +70,7 @@ export default function ProductForm() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+    <div className="max-w-2xl mx-auto p-6 bg-secondary shadow-lg rounded-lg">
       {step === 1 && (
         <div>
           <h2 className="text-2xl font-semibold mb-4">
@@ -81,7 +84,7 @@ export default function ProductForm() {
             value={productData.name}
             onChange={handleInputChange}
             placeholder="Add product name..."
-            className="w-full p-3 border rounded mt-1 mb-4 outline-none"
+            className="w-full p-3 border rounded mt-1 mb-4 outline-none bg-background"
           />
 
           <span>Product Price : </span>
@@ -91,7 +94,7 @@ export default function ProductForm() {
             value={productData.price}
             onChange={handleInputChange}
             placeholder="Price..."
-            className="w-full p-3 border rounded mt-1 mb-4 outline-none"
+            className="w-full p-3 border rounded mt-1 mb-4 outline-none bg-background"
           />
           <span>Discount Percent* (optional)</span>
           <input
@@ -100,7 +103,7 @@ export default function ProductForm() {
             value={productData.discountPercent}
             onChange={handleInputChange}
             placeholder="Add discount Percent"
-            className="w-full p-3 border rounded mt-1 mb-4 outline-none"
+            className="w-full p-3 border rounded mt-1 mb-4 outline-none bg-background"
           />
 
           <span>Product Description : </span>
@@ -109,11 +112,11 @@ export default function ProductForm() {
             value={productData.description}
             onChange={handleInputChange}
             placeholder="Write description here..."
-            className="w-full p-3 border rounded mt-1 mb-4 outline-none"
+            className="w-full p-3 border rounded mt-1 mb-4 outline-none bg-background"
           ></textarea>
           <div className="flex justify-end ">
             <Button
-              variant="custome"
+              variant="outline"
               disabled={
                 !productData.price ||
                 !productData.name ||
@@ -122,6 +125,7 @@ export default function ProductForm() {
               onClick={handleNext}
             >
               Next
+              <ArrowRight />
             </Button>
           </div>
         </div>
@@ -146,7 +150,7 @@ export default function ProductForm() {
               value={productData.stock}
               onChange={handleInputChange}
               placeholder="N0. of Stock"
-              className="w-full p-3 border rounded mt-1 mb-4 outline-none"
+              className="w-full p-3 border rounded mt-1 mb-4 outline-none bg-background"
             />
           </label>
           <label htmlFor="category">
@@ -158,13 +162,16 @@ export default function ProductForm() {
               value={productData.category}
               onChange={handleInputChange}
               placeholder="Add a category"
-              className="w-full p-3 border rounded mt-1 mb-4 outline-none"
+              className="w-full p-3 border rounded mt-1 mb-4 outline-none bg-background"
             />
           </label>
           <div className="flex justify-between">
-            <Button onClick={handleBack}>Back</Button>
+            <Button variant="secondary" onClick={handleBack}>
+              <MdArrowBack />
+              Back
+            </Button>
             <Button
-              variant="custome"
+              variant="outline"
               disabled={
                 !productData.category | !productData.imageUrl ||
                 !productData.stock
@@ -172,6 +179,7 @@ export default function ProductForm() {
               onClick={handleNext}
             >
               Next
+              <ArrowRight />
             </Button>
           </div>
         </div>
@@ -184,7 +192,7 @@ export default function ProductForm() {
           </h2>
           <div className="flex flex-col gap-2 p-4 border rounded mb-4">
             <h3 className="text-lg font-bold">
-              Name : <span className=" font-normal">{productData.name}</span>
+              Name : <span className=" font-">{productData.name}</span>
             </h3>
             <p className="text-lg font-bold">
               Price :{" "}
@@ -201,12 +209,17 @@ export default function ProductForm() {
                 {productData.discountPercent} %
               </span>
             </p>
-            <p className="text-lg font-normal">{productData.description}</p>
+            <p className="text-lg font-bold">
+              Discription :{" "}
+              <span className="  text-foreground text-sm  font-light ">
+                {productData.description}
+              </span>
+            </p>
             {productData.imageUrl && (
               <img
                 src={productData.imageUrl}
                 alt="Product Preview"
-                className="w-full h-48 object-cover my-4"
+                className="w-3/4   object-fill rounded-lg my-4"
               />
             )}
             <p className="text-lg font-bold">
@@ -214,13 +227,17 @@ export default function ProductForm() {
             </p>
           </div>
           <div className="flex justify-between">
-            <Button onClick={handleBack}>Back</Button>
-            <button
-              className="bg-green-500 text-white px-4 py-2 rounded"
+            <Button variant="secondary" onClick={handleBack}>
+              <MdArrowBack />
+              Back
+            </Button>{" "}
+            <Button
+              className=" bg-muted-foreground text-white px-4 py-2 rounded"
               onClick={handlePublish}
             >
               Publish
-            </button>
+              <MdOutlinePublishedWithChanges />
+            </Button>
           </div>
         </div>
       )}

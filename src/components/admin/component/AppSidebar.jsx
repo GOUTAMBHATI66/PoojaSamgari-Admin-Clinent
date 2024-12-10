@@ -20,8 +20,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { useAuth } from "@/components/context/AuthContext";
 
 export function AppSidebar() {
-
-  const {authUser} = useAuth();
+  const { authUser } = useAuth();
 
   const items = [
     {
@@ -49,8 +48,12 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar collapsible="icon" variant="floating" className="bg-secondary">
-      <SidebarContent>
+    <Sidebar
+      collapsible="icon"
+      variant="floating"
+      className="bg-secondary border-r-2   ring-0"
+    >
+      <SidebarContent className="border-0  ring-0 ">
         <SidebarGroup className="h-full">
           <SidebarGroupLabel className="text-xl uppercase font-serif  text-red-500">
             Swastik
@@ -76,9 +79,7 @@ export function AppSidebar() {
                         />
                         <span
                           className={`text-base font-semibold ${
-                            isActive
-                              ? "text-blue-600 dark:text-blue-400"
-                              : "text-gray-800 dark:text-gray-200"
+                            isActive ? "text-blue-600  " : "text-gray-800 "
                           }`}
                         >
                           {item.title}
@@ -92,18 +93,17 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
         <footer className="mt-0">
+          <SidebarMenuButton asChild>
+            <div className="flex items-center">
+              <FaUserCircle className="w-16 h-16 text-gray-700" />
+              <span className="flex flex-col items-end">
+                <p className="text-lg font-semibold text-gray-800">
+                  {authUser?.name || "User Name"}
+                </p>
+              </span>
+            </div>
+          </SidebarMenuButton>
 
-        <SidebarMenuButton asChild>
-              <div className="flex items-center">
-                <FaUserCircle className="w-16 h-16 text-gray-700" />
-                <span className="flex flex-col items-end">
-                  <p className="text-lg font-semibold text-gray-800">
-                    {authUser?.name || "User Name"}
-                  </p>
-                </span>
-              </div>
-            </SidebarMenuButton>
-          
           <SidebarMenuButton onClick={handleLogout}>
             {isPending ? (
               <Loader className="animate-spin" size={15} />

@@ -78,7 +78,7 @@ const ProductsPage = () => {
 
   return (
     <main>
-      <h2 className="text-black font-bold text-2xl mb-4 bg-white text-center py-2 rounded-sm">
+      <h2 className="text-black font-bold text-2xl mb-4  bg-seondary text-center py-2 rounded-sm">
         All Products
       </h2>
 

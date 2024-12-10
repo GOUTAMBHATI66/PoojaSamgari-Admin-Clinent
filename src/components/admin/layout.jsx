@@ -11,8 +11,8 @@ const Layout = () => {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className=" w-full flex flex-col bg-secondary">
-        <nav className=" sticky top-1 inset-x-0 z-30 backdrop-blur-lg border-b-2 border-muted-secondary flex items-center justify-between  rounded-l-lg    p-1 px-4  w-full ">
+      <main className=" w-full flex flex-col">
+        <nav className=" sticky top-0 inset-x-0 z-30 backdrop-blur-lg bg-secondary   flex items-center justify-between   border-b-2    p-1 px-4  w-full ">
           <div>
             <SidebarTrigger />
           </div>
@@ -23,7 +23,7 @@ const Layout = () => {
             </Button>
           </div>
         </nav>
-        <div className="p-2 px-3  flex-1 lg:p-3">
+        <div className="p-2 px-3  bg-background flex-1 lg:p-3">
           <Outlet />
         </div>
       </main>
