@@ -5,6 +5,7 @@
 body {
   min-width: 320px;
   min-height: 100vh;
+  @apply bg-secondary;
 }
 
 /* @layer base {
@@ -82,7 +83,7 @@ body {
 @layer base {
   :root {
     /* General Theme Colors */
-    --background: #FFF9ED; /* Soft yellow */
+    --background: #fff9ed; /* Soft yellow */
     --foreground: #3e2723; /* Dark brown for contrast */
     --card: #ffefd3; /* Light orange */
     --card-foreground: #3e2723;
