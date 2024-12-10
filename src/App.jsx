@@ -12,6 +12,7 @@ import useDynamicTitle from "./hooks/useDynamicTitle";
 import Home from "./components/client/home/Home";
 import EditProduct from "./components/admin/pages/EditProduct";
 import CheckoutPage from "./components/client/CheckoutPage";
+import ProfilePage from "./components/client/profile/ProfilePage";
 
 const App = () => {
   useDynamicTitle();
@@ -62,6 +63,7 @@ const App = () => {
           }
         />
       </Route>
+      {/* client routes */}
       <Route
         path="/checkout"
         element={
@@ -70,7 +72,14 @@ const App = () => {
           //  </ProtectedRoute>
         }
       />
-      {/* client routes */}
+      <Route
+        path="/profile"
+        element={
+          //  <ProtectedRoute adminOnly>
+          <ProfilePage />
+          //  </ProtectedRoute>
+        }
+      />
       <Route path="/" element={<Home />} />
     </Routes>
   );
