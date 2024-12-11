@@ -5,16 +5,20 @@ import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { MyProvider } from "./components/context/AuthContext";
 import { Toaster } from "react-hot-toast";
+import { Provider } from "react-redux";
+import store from "./app/store";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter
       future={{ v7_relativeSplatPath: true, v7_startTransition: true }}
     >
-       <MyProvider>
-      <App />
-      <Toaster />
-    </MyProvider>
+      <Provider store={store}>
+        <MyProvider>
+          <App />
+          <Toaster />
+        </MyProvider>
+      </Provider>
     </BrowserRouter>
   </StrictMode>
 );

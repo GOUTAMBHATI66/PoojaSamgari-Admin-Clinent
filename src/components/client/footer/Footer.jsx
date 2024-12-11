@@ -4,7 +4,7 @@ import { RiTwitterXFill } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa";
 const Footer = () => {
   return (
-    <footer className=" text-orange-600 py-8">
+    <footer className=" text-orange-600 py-8 bg-white">
       <div className="container mx-auto text-center space-y-6">
         {/* Logo */}
         <div>
