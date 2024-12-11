@@ -10,9 +10,11 @@ import UserForm from "../profile/UserForm";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/components/context/AuthContext";
 
 const ShippingAddress = ({ products }) => {
   const [isOpen, setIsOpen] = useState();
+  const { authUser } = useAuth();
   const navigate = useNavigate();
   const onCheckout = () => {
     navigate("/checkout");
@@ -20,14 +22,16 @@ const ShippingAddress = ({ products }) => {
   false;
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger>Checkout</DialogTrigger>
+      <DialogTrigger className="bg-foreground w-full rounded-full p-2 text-base font-bold text-muted px-2">
+        Buy{" "}
+      </DialogTrigger>
       <DialogContent className="p-1 bg-secondary w-full md:w-1/2 ">
         <DialogHeader>
           <DialogDescription>
             <UserForm />
             <Button
               className="w-full  bg-blue-500 hover:bg-blue-700 disabled:bg-blue-300"
-              disabled={products.length === 0}
+              disabled={!authUser.street || products.length === 0}
               onClick={onCheckout}
             >
               <p className="hover:translate-x-2 transition-all">
