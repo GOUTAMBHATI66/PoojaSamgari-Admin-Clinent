@@ -55,7 +55,7 @@ const CheckoutPage = () => {
               "/api/store/order/payment/verify",
               verifyPayload
             );
-            if (verifyResponse.data.success) {
+            if (verifyResponse.success) {
               toast.success("Payment Successful!");
               navigate("/");
             } else {
@@ -101,19 +101,16 @@ const CheckoutPage = () => {
   };
 
   return (
-    <main className="container mx-auto md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center justify-center w-full">
+    <main className="container mx-auto md:p-6 flex flex-col gap-8 items-center justify-center w-full h-full overflow-y-auto">
       <OrderSummary products={products} status={status} />
 
-      <div>
-        <UserForm />
-        <Button
-          onClick={handleCheckout}
-          disabled={products.length === 0}
-          className="mt-6 bg-blue-700 hover:bg-blue-500 text-white font-medium rounded-lg py-3 w-full transition-all"
-        >
-          Pay
-        </Button>
-      </div>
+      {/* <UserForm />/ */}
+      <Button
+        onClick={handleCheckout}
+        className="mt-6 bg-blue-700 disabled:bg-sky-300 hover:bg-blue-500 text-white font-medium rounded-lg py-3 w-1/2 transition-all"
+      >
+        Pay
+      </Button>
     </main>
   );
 };
