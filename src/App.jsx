@@ -11,7 +11,7 @@ import ProtectedRoute from "./components/admin/component/ProtectedRoute";
 import useDynamicTitle from "./hooks/useDynamicTitle";
 import Home from "./components/client/home/Home";
 import EditProduct from "./components/admin/pages/EditProduct";
-import CheckoutPage from "./components/client/CheckoutPage";
+import CheckoutPage from "./components/client/Checkout/CheckoutPage";
 import ProfilePage from "./components/client/profile/ProfilePage";
 
 const App = () => {
@@ -67,17 +67,17 @@ const App = () => {
       <Route
         path="/checkout"
         element={
-          //  <ProtectedRoute adminOnly>
-          <CheckoutPage />
-          //  </ProtectedRoute>
+          <ProtectedRoute>
+            <CheckoutPage />
+          </ProtectedRoute>
         }
       />
       <Route
         path="/profile"
         element={
-          //  <ProtectedRoute adminOnly>
-          <ProfilePage />
-          //  </ProtectedRoute>
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
         }
       />
       <Route path="/" element={<Home />} />

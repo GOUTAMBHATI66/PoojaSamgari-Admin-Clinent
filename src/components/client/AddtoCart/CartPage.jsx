@@ -7,10 +7,14 @@ import {
   updateQuantity,
 } from "@/features/cartSlice";
 import Counter from "./Counter";
+import { Loader } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
-const CartPage = ({ onCheckout }) => {
+const CartPage = () => {
   const dispatch = useDispatch();
-  const { products, status } = useSelector((state) => state.cartSlice);
+  const navigate = useNavigate();
+  const { products, status, error } = useSelector((state) => state.cartSlice);
 
   // Fetch cart products on mount
   useEffect(() => {
@@ -18,7 +22,7 @@ const CartPage = ({ onCheckout }) => {
   }, [dispatch]);
 
   // Calculate total price and total items
-  const totalItems = products.reduce((total, item) => total + item.quantity, 0);
+  const totalItems = products.map((item) => item.id)?.length;
   const totalPrice = products.reduce((total, item) => {
     const discountedPrice =
       item.price - (item.price * item.discountPercent) / 100;
@@ -34,16 +38,24 @@ const CartPage = ({ onCheckout }) => {
     dispatch(removeItem(id));
   };
 
+  const onCheckout = () => {
+    navigate("/checkout");
+  };
   return (
     <div className="py-4 flex flex-col justify-between h-screen pb-10">
       <div className="flex flex-col space-y-6">
         <div className="flex justify-around items-center space-x-2">
-          <div className="font-semibold flex items-center space-x-3">
-            <span className="text-xl">Cart</span>
-            <div className="h-7 w-7 bg-black text-center rounded-full text-background flex items-center justify-center">
-              {totalItems}
+          {status === "loading" ? (
+            <p>Loading...</p>
+          ) : (
+            <div className="font-semibold flex items-center space-x-3">
+              <span className="text-xl">Cart</span>
+
+              <div className="h-7 w-7 bg-black text-center rounded-full text-background flex items-center justify-center">
+                {totalItems}
+              </div>
             </div>
-          </div>
+          )}
         </div>
         {status === "loading" && <p>Loading...</p>}
         {status === "succeeded" && products.length === 0 && (
@@ -52,7 +64,7 @@ const CartPage = ({ onCheckout }) => {
           </div>
         )}
         {status === "succeeded" && products.length > 0 && (
-          <div className="mt-4 space-y-4 max-h-[60vh] overflow-y-auto hide-scrollbar">
+          <div className="mt-4 space-y-4 max-h-[60vh] overflow-y-auto  px-3">
             {products.map((item) => {
               const discountedPrice =
                 item.price - (item.price * item.discountPercent) / 100;
@@ -75,15 +87,18 @@ const CartPage = ({ onCheckout }) => {
                     </div>
                     <div className="space-y-1">
                       <h3 className="font-medium sm:text-sm text-xs">
-                        {item.name} {item.description}
+                        {item.name}}
                       </h3>
+                      <p className="text-xs  text-muted-foreground line-clamp-1">
+                        {item.description}
+                      </p>
                       <p className="text-xs">
                         Price:{" "}
                         <span className="line-through text-muted-foreground text-xs">
-                          ₹{(item.price * item.quantity).toFixed(2)}
+                          ₹{item.price.toFixed(2)}
                         </span>{" "}
                         <span className="text-primary font-semibold">
-                          ₹{(discountedPrice * item.quantity).toFixed(2)}
+                          ₹{discountedPrice.toFixed(2)}
                         </span>
                         <span className="font-bold bg-primary text-white text-xs px-1 ml-2 rounded">
                           Save {item.discountPercent}%
@@ -110,21 +125,21 @@ const CartPage = ({ onCheckout }) => {
           </div>
         )}
       </div>
-      <div className="mt-6 border-t pt-4 space-y-4">
+      <div className="mt-6 border-t pt-4 space-y-3 px-6">
         <div className="flex justify-between text-lg font-semibold">
           <span className="font-bold tracking-wider">Total</span>
           <span className="font-bold tracking-wider text-xl">
             ₹{totalPrice.toFixed(2)}
           </span>
         </div>
-        <button
+        <Button
+          // variant="outline"
+          className="w-full "
+          disabled={products.length === 0}
           onClick={onCheckout}
-          className="mt-4 w-full bg-primary hover:bg-secondary text-background font-bold tracking-wider text-lg py-2 rounded flex justify-center items-center gap-2"
         >
-          <p className="hover:translate-x-2 transition-all">
-            CHECKOUT {"> >"}
-          </p>
-        </button>
+          <p className="hover:translate-x-2 transition-all">CHECKOUT {">"}</p>
+        </Button>
       </div>
     </div>
   );

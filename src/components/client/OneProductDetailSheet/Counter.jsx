@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { FaMinus } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa";
-const Counter = ({setquantity,limit}) => {
+const Counter = ({ setquantity, limit }) => {
   const [count, setCount] = useState(1);
 
   // Increment function
   const increment = () => {
-    if(count<limit){
+    if (count < limit) {
       setCount((prevCount) => prevCount + 1);
     }
   };
@@ -18,17 +18,16 @@ const Counter = ({setquantity,limit}) => {
     }
   };
 
-  useEffect(()=>{
-    setquantity(count)
-  },[count])
+  useEffect(() => {
+    setquantity(count);
+  }, [count]);
 
   // Handle manual input
   const handleInputChange = (e) => {
     const value = parseInt(e.target.value, 10);
     // Ensure the input value is a number and not negative
-    if (!isNaN(value) && value >= 0) {
+    if (!isNaN(value) && value >= 1) {
       setCount(value);
-      
     } else if (e.target.value === "") {
       setCount(""); // Allows clearing input temporarily
     }
@@ -40,8 +39,11 @@ const Counter = ({setquantity,limit}) => {
       <button
         onClick={decrement}
         className="text-xl hover:text-muted-foreground focus:outline-none py-1.5"
-      > 
-        <FaMinus size={16} className={`${count==1?"text-gray-300":""} `}/>
+      >
+        <FaMinus
+          size={16}
+          className={`${count == 1 ? "text-gray-300" : ""} `}
+        />
       </button>
 
       {/* Counter Input */}
@@ -57,7 +59,10 @@ const Counter = ({setquantity,limit}) => {
         onClick={increment}
         className="text-lg  hover:text-muted-foreground focus:outline-none py-1.5"
       >
-        <FaPlus size={15} className={`${count==limit?"text-gray-300":""} `}/>
+        <FaPlus
+          size={15}
+          className={`${count == limit ? "text-gray-300" : ""} `}
+        />
       </button>
     </div>
   );
