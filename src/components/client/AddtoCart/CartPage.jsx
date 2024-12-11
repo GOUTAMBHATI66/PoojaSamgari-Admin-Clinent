@@ -41,6 +41,7 @@ const CartPage = () => {
   const onCheckout = () => {
     navigate("/checkout");
   };
+
   return (
     <div className="py-4 flex flex-col justify-between h-screen pb-10">
       <div className="flex flex-col space-y-6">
@@ -87,7 +88,7 @@ const CartPage = () => {
                     </div>
                     <div className="space-y-1">
                       <h3 className="font-medium sm:text-sm text-xs">
-                        {item.name}}
+                        {item.name}
                       </h3>
                       <p className="text-xs  text-muted-foreground line-clamp-1">
                         {item.description}

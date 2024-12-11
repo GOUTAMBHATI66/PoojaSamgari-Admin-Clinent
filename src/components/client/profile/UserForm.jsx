@@ -26,6 +26,7 @@ const UserForm = () => {
   const [showReenter, setShowReenter] = useState(false);
 
   useEffect(() => {
+
     const fetchUserData = async () => {
       try {
         setLoading(true);
@@ -97,11 +98,13 @@ const UserForm = () => {
       setLoading(false);
     }
   };
+  
   return (
-    <Card className="p-6 max-w-3xl w-full">
-      <h2 className="text-xl font-semibold text-center mb-4">
+    <Card className="p-6 w-full border border-black/10 shadow-md">
+      <h2 className="text-2xl font-semibold text-center text-[#EA580C] mb-4 pb-4 border-b border-black/10  ">
         Add Shipping Address
       </h2>
+
       {loading ? (
         <div>Loading...</div>
       ) : (
@@ -109,11 +112,12 @@ const UserForm = () => {
           <div className="col-span-2">
             <label
               htmlFor="name"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 "
             >
               Name
             </label>
             <Input
+              
               id="name"
               name="name"
               value={formData.name}
