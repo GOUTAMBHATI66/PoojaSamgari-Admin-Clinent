@@ -57,7 +57,7 @@ const CheckoutPage = () => {
             );
             if (verifyResponse.success) {
               toast.success("Payment Successful!");
-              navigate("/");
+              navigate("/profile");
             } else {
               throw new Error("Payment verification failed");
             }
@@ -83,16 +83,44 @@ const CheckoutPage = () => {
           card: true,
           wallet: true,
         },
+        modal: {
+          ondismiss: async function (response) {
+            console.log(response);
+            console.warn("Payment modal closed by user");
+            toast.error("Payment was not completed. Deleting order...");
+
+            try {
+              // API request to delete the order
+              await AxiosBase.delete(
+                `/api/store/order/delete/${data.order.id}`
+              );
+              toast.success("Order deleted successfully.");
+            } catch (error) {
+              console.error("Failed to delete the order:", error);
+              toast.error(
+                "Failed to clean up the order. Please contact support."
+              );
+            }
+          },
+        },
       };
 
-      // Initialize Razorpay
+      // initialize Razorpay for the request
       const rzp1 = new window.Razorpay(options);
-      rzp1.on("payment.failed", function (response) {
+      rzp1.on("payment.failed", async function (response) {
         console.error("Payment Failed:", response);
         toast.error("Payment failed. Please try again.");
+        try {
+          //  request to delete the order
+          await AxiosBase.delete(`/api/store/order/delete/${data.order.id}`);
+          toast.success("Order deleted successfully.");
+        } catch (error) {
+          console.error("Failed to delete the order:", error);
+          toast.error("Failed to clean up the order. Please contact support.");
+        }
       });
 
-      // Open Razorpay Modal
+      // open Razorpay Modal for the order details
       rzp1.open();
     } catch (error) {
       console.error("Checkout error:", error);

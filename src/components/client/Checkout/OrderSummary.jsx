@@ -9,7 +9,7 @@ const OrderSummary = ({ products, status }) => {
   }, 0);
 
   return (
-    <Card className="relative p-6 max-w-3xl w-full   flex flex-col">
+    <Card className="relative p-6 max-w-3xl w-full h-full   flex flex-col">
       <CardTitle className="text-xl font-bold text-gray-800 border-b pb-2">
         Order Summary
       </CardTitle>
@@ -17,7 +17,7 @@ const OrderSummary = ({ products, status }) => {
       {status === "loading" ? (
         <p>Loading...</p>
       ) : (
-        <div className="flex-grow overflow-y-auto hide-scrollbar">
+        <div className="flex-grow   h-full">
           <div className="space-y-2">
             {products.map((item) => {
               const discountedPrice =

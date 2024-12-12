@@ -15,12 +15,13 @@ import { TbCategoryPlus } from "react-icons/tb";
 import { BsBarChartLine } from "react-icons/bs";
 import { LuClipboardPen } from "react-icons/lu";
 import { Loader, LucideLogOut } from "lucide-react";
-import { useContext, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useAuth } from "@/components/context/AuthContext";
+import useLogout from "@/hooks/useLogout";
 
 export function AppSidebar() {
   const { authUser } = useAuth();
+  const { isPending, handleLogout } = useLogout();
 
   const items = [
     {
@@ -39,13 +40,6 @@ export function AppSidebar() {
       icon: LuClipboardPen,
     },
   ];
-
-  const navigate = useNavigate();
-  const [isPending, setisPending] = useState(false);
-
-  const handleLogout = (e) => {
-    e.preventDefault();
-  };
 
   return (
     <Sidebar

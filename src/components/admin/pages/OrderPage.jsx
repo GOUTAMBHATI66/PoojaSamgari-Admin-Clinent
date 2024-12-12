@@ -31,6 +31,7 @@ const OrderPage = () => {
       if (!data.success)
         throw new Error(data.message || "Failed to fetch orders.");
       setOrders(data.data);
+      console.log(data);
       const statuses = data.data.reduce((acc, order) => {
         acc[order.id] = order.status;
         return acc;
@@ -97,6 +98,7 @@ const OrderPage = () => {
               <TableHead>Order ID</TableHead>
               <TableHead>Customer Name</TableHead>
               <TableHead>Shipping Address</TableHead>
+              <TableHead>Order Contact</TableHead>
               <TableHead>Total Amount</TableHead>
               <TableHead>Order Items</TableHead>
               <TableHead>Status</TableHead>
@@ -109,11 +111,15 @@ const OrderPage = () => {
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>{order.id}</TableCell>
                 <TableCell>{order.user?.name || "N/A"}</TableCell>
-                <TableCell>
+                <TableCell className="capitalize">
                   {order.shippingAddress?.street}, {order.shippingAddress?.city}
                   , {order.shippingAddress?.state},{" "}
                   {order.shippingAddress?.postalCode},{" "}
                   {order.shippingAddress?.country}
+                </TableCell>
+                <TableCell className="capitalize">
+                  <p>+{order.shippingAddress.phonenumber}</p>
+                  {order.shippingAddress.email}
                 </TableCell>
                 <TableCell>&#8377;{order.totalAmount.toFixed(2)}</TableCell>
                 <TableCell>
