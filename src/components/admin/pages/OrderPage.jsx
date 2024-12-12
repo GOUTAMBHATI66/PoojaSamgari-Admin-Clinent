@@ -101,6 +101,7 @@ const OrderPage = () => {
               <TableHead>Order Contact</TableHead>
               <TableHead>Total Amount</TableHead>
               <TableHead>Order Items</TableHead>
+              <TableHead>Payment Type</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Update Status</TableHead>
             </TableRow>
@@ -122,6 +123,7 @@ const OrderPage = () => {
                   {order.shippingAddress.email}
                 </TableCell>
                 <TableCell>&#8377;{order.totalAmount.toFixed(2)}</TableCell>
+                <TableCell>{order.paymentMethod}</TableCell>
                 <TableCell>
                   {order.orderItems.map((item) => (
                     <div key={item.id} className="mb-2">

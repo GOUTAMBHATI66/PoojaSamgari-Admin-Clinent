@@ -31,8 +31,8 @@ const MyOrders = () => {
   // Filter orders based on the active tab
   const filteredOrders = orders.filter((order) =>
     activeTab === "COMPLETED"
-      ? order.status === "COMPLETED"
-      : order.status !== "COMPLETED"
+      ? order.deliveryStatus === "COMPLETED"
+      : order.deliveryStatus !== "COMPLETED"
   );
 
   return (
