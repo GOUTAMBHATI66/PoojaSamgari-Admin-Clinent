@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../../ui/button";
 import OrderSummary from "./OrderSummary";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -6,12 +6,14 @@ import AxiosBase from "@/lib/axios";
 import { useAuth } from "@/components/context/AuthContext";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { clearCart } from "@/features/cartSlice";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
   const { authUser, isLoading } = useAuth();
   const { products, status } = useSelector((state) => state.cartSlice);
   const [paymentMethod, setPaymentMethod] = useState("COD");
+  const dispatch = useDispatch();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -39,6 +41,7 @@ const CheckoutPage = () => {
       if (paymentMethod === "COD" && data.success) {
         toast.success("Order placed successfully");
         navigate("/profile");
+        dispatch(clearCart());
         return;
       }
 
@@ -63,6 +66,7 @@ const CheckoutPage = () => {
             );
             if (verifyResponse.success) {
               toast.success("Payment Successful!");
+              dispatch(clearCart());
               navigate("/profile");
             } else {
               throw new Error("Payment verification failed");
