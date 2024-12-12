@@ -9,7 +9,7 @@ const OrderSummary = ({ products, status }) => {
   }, 0);
 
   return (
-    <Card className="relative p-6 max-w-3xl w-full   h-[80vh] md:h-3/4  flex flex-col">
+    <Card className="relative p-6 max-w-3xl w-full   flex flex-col">
       <CardTitle className="text-xl font-bold text-gray-800 border-b pb-2">
         Order Summary
       </CardTitle>

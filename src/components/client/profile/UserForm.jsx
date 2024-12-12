@@ -6,6 +6,8 @@ import AxiosBase from "@/lib/axios";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import toast from "react-hot-toast";
+import { useAuth } from "@/components/context/AuthContext";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const UserForm = () => {
   const [formData, setFormData] = useState({
@@ -19,6 +21,7 @@ const UserForm = () => {
     name: "",
     email: "",
   });
+  const { setAuthUser, authUser } = useAuth();
 
   const [loading, setLoading] = useState(false);
   const [initialPhoneNumber, setInitialPhoneNumber] = useState("");
@@ -30,9 +33,9 @@ const UserForm = () => {
     const fetchUserData = async () => {
       try {
         setLoading(true);
-        const { data } = await AxiosBase.get("/auth/me");
-        setFormData(data);
-        setInitialPhoneNumber(data.phonenumber || "");
+        // const { data } = await AxiosBase.get("/auth/me");
+        setFormData(authUser);
+        setInitialPhoneNumber(authUser.phonenumber || "");
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
@@ -90,6 +93,7 @@ const UserForm = () => {
       );
       if (data.success) {
         toast.success("User address updated." || data.message);
+        setAuthUser(data.data);
       }
     } catch (error) {
       console.error("Error updating user address:", error);
@@ -106,7 +110,9 @@ const UserForm = () => {
       </h2>
 
       {loading ? (
-        <div>Loading...</div>
+        [...Array(6)].map((_, idx) => (
+          <Skeleton key={idx} className="h-10 my-4  rounded-lg w-full" />
+        ))
       ) : (
         <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
           <div className="col-span-2">

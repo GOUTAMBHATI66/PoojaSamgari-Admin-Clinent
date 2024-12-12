@@ -7,13 +7,10 @@ import {
   updateQuantity,
 } from "@/features/cartSlice";
 import Counter from "./Counter";
-import { Loader } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import ShippingAddress from "../Checkout/ShippingAddress";
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { products, status, error } = useSelector((state) => state.cartSlice);
 
   // Fetch cart products on mount
@@ -133,14 +130,8 @@ const CartPage = () => {
             ₹{totalPrice.toFixed(2)}
           </span>
         </div>
-        <Button
-          // variant="outline"
-          className="w-full "
-          disabled={products.length === 0}
-          onClick={onCheckout}
-        >
-          <p className="hover:translate-x-2 transition-all">CHECKOUT {">"}</p>
-        </Button>
+
+        <ShippingAddress products={products} />
       </div>
     </div>
   );
