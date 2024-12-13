@@ -13,13 +13,12 @@ const CartPage = () => {
   const dispatch = useDispatch();
   const { products, status, error } = useSelector((state) => state.cartSlice);
 
-  // Fetch cart products on mount
   useEffect(() => {
     dispatch(fetchCartProducts());
   }, [dispatch]);
 
   // Calculate total price and total items
-  const totalItems = products.map((item) => item.id)?.length;
+  const totalItems = products.length;
   const totalPrice = products.reduce((total, item) => {
     const discountedPrice =
       item.price - (item.price * item.discountPercent) / 100;
@@ -48,36 +47,33 @@ const CartPage = () => {
           ) : (
             <div className="font-semibold flex items-center space-x-3">
               <span className="text-xl">Cart</span>
-
               <div className="h-7 w-7 bg-black text-center rounded-full text-background flex items-center justify-center">
                 {totalItems}
               </div>
             </div>
           )}
         </div>
-        {status === "loading" && <p>Loading...</p>}
         {status === "succeeded" && products.length === 0 && (
           <div className="flex items-center justify-center h-40">
             <p>Your cart is empty.</p>
           </div>
         )}
         {status === "succeeded" && products.length > 0 && (
-          <div className="mt-4 space-y-4 max-h-[60vh] overflow-y-auto  px-3">
+          <div className="mt-4 space-y-4 max-h-[60vh] overflow-y-auto px-3">
             {products.map((item) => {
               const discountedPrice =
                 item.price - (item.price * item.discountPercent) / 100;
-
               return (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between py-2 border-b"
+                  className="flex items-center justify-between py-2"
                 >
                   <div className="flex items-center gap-4">
                     <div className="sm:w-20 sm:h-20 w-16 h-16">
                       <img
                         src={
-                          item.image ||
-                          "https://via.placeholder.com/100x100/cccccc/FFFFFF?text=image"
+                          item.imageUrl ||
+                          "https://via.placeholder.com/100x100/cccccc/FFFFFF?text=Image"
                         }
                         alt={item.name}
                         className="object-cover rounded"
@@ -87,7 +83,7 @@ const CartPage = () => {
                       <h3 className="font-medium sm:text-sm text-xs">
                         {item.name}
                       </h3>
-                      <p className="text-xs  text-muted-foreground line-clamp-1">
+                      <p className="text-xs text-muted-foreground line-clamp-1">
                         {item.description}
                       </p>
                       <p className="text-xs">

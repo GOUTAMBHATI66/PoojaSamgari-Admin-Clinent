@@ -80,7 +80,7 @@ const ProductsPage = () => {
 
   return (
     <main>
-      <h2 className="text-black bg-secondary font-bold text-2xl mb-4  bg-seondary text-center py-2 rounded-sm">
+      <h2 className="text-primary bg-secondary  font-semibold text-xl mb-2 text-center py-1 rounded-sm">
         All Products
       </h2>
 
@@ -184,12 +184,12 @@ const ProductsPage = () => {
         </Table>
       )}
 
-      <Button
+      {/* <Button
         className="fixed right-5 sm:right-10 bottom-10"
         onClick={() => navigate("/admin/products/create")}
       >
         <IoMdAdd /> <span className="hidden sm:inline">Add Product</span>
-      </Button>
+      </Button> */}
     </main>
   );
 };
