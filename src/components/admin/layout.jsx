@@ -11,27 +11,31 @@ const Layout = () => {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className="w-full flex flex-col h-screen">
-        <nav className=" sticky top-0 inset-x-0 z-30 backdrop-blur-lg bg-secondary   flex items-center justify-between  p-1 px-4  w-full ">
-          <div>
+      <main className="w-full h-screen overflow-x-hidden">
+        <nav className="h-[80px] sticky top-0 backdrop-blur-lg z-50 bg-secondary  p-1  w-full ">
+          <div className=" flex items-center justify-between">
             <SidebarTrigger />
+
+            <Link to="/">
+              {" "}
+              <span className="text-base font-semibold text-gray-700 hover:text-white hover:bg-primary rounded-sm transition-colors duration-300 py-1 px-2">
+                Client View
+              </span>{" "}
+            </Link>
+            <div>
+              <Button onClick={() => navigate("/admin/products/create")}>
+                <IoMdAdd /> <span className=" max-sm:hidden">Add Product</span>
+              </Button>
+            </div>
           </div>
-          <Link to="/" > <Button variant="outline">Client View</Button> </Link>
-          <div>
-            <Button onClick={() => navigate("/admin/products/create")}>
-              <IoMdAdd /> <span className=" max-sm:hidden">Add Product</span>
-            </Button>
-          </div>
+          <section className=" z-20">
+            <DynamicBreadcrumb />
+          </section>
         </nav>
-        
-        <section className="sticky top-[3.5rem] bg-background z-20">
-          <DynamicBreadcrumb />
-        </section>
-        
+
         <div className="p-2 px-3 bg-background flex-1 lg:p-3">
           <Outlet />
         </div>
-        
       </main>
     </SidebarProvider>
   );
