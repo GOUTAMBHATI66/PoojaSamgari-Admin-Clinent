@@ -5,7 +5,7 @@
 body {
   min-width: 320px;
   min-height: 100vh;
-  @apply bg-secondary;
+  
 }
 
 /* @layer base {
@@ -83,7 +83,7 @@ body {
 @layer base {
   :root {
     /* General Theme Colors */
-    --background: #fff9ed; /* Soft yellow */
+    --background: #fdfcf4; /* Soft yellow */
     --foreground: #3e2723; /* Dark brown for contrast */
     --card: #ffefd3; /* Light orange */
     --card-foreground: #3e2723;
@@ -91,9 +91,9 @@ body {
     --popover-foreground: #3e2723;
 
     /* Primary Theme Colors */
-    --primary: #ff6f00; /* Bright orange */
+    --primary: #3e2723; /* Bright orange */
     --primary-foreground: #fff3e0;
-    --secondary: #f8ebe6; /* Vibrant yellow */
+    --secondary: #d7c4ba31; /* Vibrant yellow */
     --secondary-foreground: #3e2723;
 
     /* Muted Colors */

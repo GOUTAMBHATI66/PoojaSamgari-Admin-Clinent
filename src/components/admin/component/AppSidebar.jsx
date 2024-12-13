@@ -49,7 +49,7 @@ export function AppSidebar() {
     >
       <SidebarContent className="ring-0 ">
         <SidebarGroup className="h-full">
-          <SidebarGroupLabel className="text-xl uppercase font-serif  text-red-500">
+          <SidebarGroupLabel className="text-2xl uppercase font-serif tracking-wider text-primary font-bold">
             Swastik
           </SidebarGroupLabel>
           <SidebarGroupContent className="py-3  ">
@@ -66,14 +66,14 @@ export function AppSidebar() {
                       <Link to={item.url}>
                         <item.icon
                           className={` ${
-                            isActive ? "text-blue-500 " : "text-gray-700"
+                            isActive ? "text-primary " : "text-slate-500"
                           } dark:${
                             isActive ? "text-blue-300" : "text-gray-300"
                           }`}
                         />
                         <span
                           className={`text-base font-semibold ${
-                            isActive ? "text-blue-600  " : "text-gray-800 "
+                            isActive ? "text-primary  " : "text-slate-500"
                           }`}
                         >
                           {item.title}

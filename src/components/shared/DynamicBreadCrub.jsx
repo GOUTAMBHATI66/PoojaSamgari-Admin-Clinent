@@ -26,7 +26,7 @@ export default function DynamicBreadcrumb() {
   }, [pathname]);
 
   return (
-    <Breadcrumb className=" flex items-center my-4 mx-2 space-x-2 ">
+    <Breadcrumb className=" flex items-center mx-2 space-x-2 ">
       <BreadcrumbList className=" flex ">
        
         {pathSegments.map((segment, index) => (
@@ -40,7 +40,7 @@ export default function DynamicBreadcrumb() {
                 {segment.name}
               </span>
             ) : (
-              <Link to={segment.href} className="hover:underline hover:font-medium ">
+              <Link to={segment.href} className="hover:underline transition-all duration-700">
                 {segment.name}
               </Link>
             )}

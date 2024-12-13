@@ -81,8 +81,8 @@ const OrderPage = () => {
   }, [page, size]);
 
   return (
-    <main>
-      <h2 className="text-black bg-secondary font-bold text-2xl mb-4 text-center py-2 rounded-sm">
+    <main className="h-full">
+      <h2 className="text-primary bg-secondary  font-semibold text-xl mb-2 text-center py-1 rounded-sm">
         All Orders
       </h2>
 
@@ -108,8 +108,8 @@ const OrderPage = () => {
                 <TableHead>Shipping Address</TableHead>
                 <TableHead>Order Contact</TableHead>
                 <TableHead>Total Amount</TableHead>
-                <TableHead>Order Items</TableHead>
                 <TableHead>Payment Type</TableHead>
+                <TableHead>Order Items</TableHead>
                 <TableHead>Payment Status</TableHead>
                 <TableHead>Update Status</TableHead>
               </TableRow>
@@ -121,11 +121,13 @@ const OrderPage = () => {
                   <TableCell>{order.id}</TableCell>
                   <TableCell>{order.user?.name || "N/A"}</TableCell>
                   <TableCell className="capitalize">
-                    {order.shippingAddress?.street},{" "}
-                    {order.shippingAddress?.city},{" "}
-                    {order.shippingAddress?.state},{" "}
-                    {order.shippingAddress?.postalCode},{" "}
-                    {order.shippingAddress?.country}
+                    <p>
+                      {order.shippingAddress?.street},{" "}
+                      {order.shippingAddress?.city},{" "}
+                      {order.shippingAddress?.state},{" "}
+                      {order.shippingAddress?.postalCode},{" "}
+                      {order.shippingAddress?.country}
+                    </p>
                   </TableCell>
                   <TableCell className="capitalize">
                     <p>+{order.shippingAddress.phonenumber}</p>
@@ -172,9 +174,9 @@ const OrderPage = () => {
             </TableBody>
           </Table>
 
-          <div className="flex justify-between items-center mt-4">
+          <div className="flex space-x-5 items-center mt-4">
             <Button
-              className="btn"
+              size="sm"
               disabled={page === 1}
               onClick={() => handlePageChange(page - 1)}
             >
@@ -184,7 +186,7 @@ const OrderPage = () => {
               Page {page} of {totalPages}
             </p>
             <Button
-              className="btn"
+             size="sm"
               disabled={page === totalPages}
               onClick={() => handlePageChange(page + 1)}
             >

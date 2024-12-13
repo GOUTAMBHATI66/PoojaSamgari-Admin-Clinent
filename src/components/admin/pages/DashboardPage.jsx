@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
 const Dashboard = () => {
   
-  return <div className=" flex flex-col gap-4 py-4 ">
+  return <div className=" flex flex-col gap-6 py-4 ">
 
     {/* Standard details */}
     <div className=" space-y-4">
@@ -29,10 +29,10 @@ const Dashboard = () => {
     <div className=" flex flex-col w-full lg:w-[40%] h-full gap-2 ">
 
       {/* Payment status  */}
-    <div className=" lg:h-1/3 bg-[#fbede7] rounded-lg ">
-      <h2 className=" text-center text-lg font-semibold border-b border-black py-2">Payment Status of Orders</h2>
+    <div className=" lg:h-1/3 bg-[#e2d0ca] rounded-lg ">
+      <h2 className=" text-center text-lg font-semibold border-b border-primary py-2">Payment Status of Orders</h2>
       <div className="flex gap-2 items-center justify-center px-4">
-            <div className=" w-1/2 border-r border-black my-2">
+            <div className=" w-1/2 border-r border-primary my-2">
               <h1 className=" text-center text-2xl font-bold my-3">COD</h1>
               <p className=" text-center text-xl font-semibold">23</p>
             </div>
@@ -51,7 +51,7 @@ const Dashboard = () => {
         <Link to={"/admin/orders"} className=" text-blue-600"> <Button variant="link" >Show All</Button> </Link>
       </div>
 
-      <div className="flex lg:flex-col gap-2 overflow-x-scroll md:overflow-auto">
+      <div className="flex lg:flex-col gap-4 overflow-x-scroll md:overflow-auto">
         <DashboardProduct />
         <DashboardProduct />
         <DashboardProduct />
