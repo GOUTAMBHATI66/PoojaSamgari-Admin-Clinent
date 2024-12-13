@@ -60,7 +60,7 @@ const OrderPage = () => {
       }));
 
       const { data } = await AxiosBase.put(
-        `/api/admin/orders/${orderId}/status`,
+        `/api/admin//order/update/${orderId}/`,
         { status: newStatus }
       );
 
@@ -150,7 +150,7 @@ const OrderPage = () => {
                   <TableCell>{deliveryStatuses[order.id]}</TableCell>
                   <TableCell>
                     <Select
-                      value={deliveryStatuses[order.id]}
+                      value={order.deliveryStatus}
                       onValueChange={(newStatus) =>
                         handleStatusChange(order.id, newStatus)
                       }

@@ -94,36 +94,25 @@ const CheckoutPage = () => {
           wallet: true,
         },
         modal: {
-          ondismiss: async function (response) {
-            console.warn("Payment modal closed by user");
-            toast.error("Payment was not completed. Deleting order...");
+          ondismiss: async function () {
             try {
-              await AxiosBase.delete(
-                `/api/store/order/delete/${data.order.id}`
+              console.log("Payment modal closed by user");
+              const { data: res } = await AxiosBase.delete(
+                `/api/store/order/payment/delete/${data.order.id}`
               );
-              toast.success("Order deleted successfully.");
+              if (res.success) {
+                toast.info(
+                  "Payment modal closed. Your order has been canceled."
+                );
+              }
             } catch (error) {
               console.error("Failed to delete the order:", error);
-              toast.error(
-                "Failed to clean up the order. Please contact support."
-              );
             }
           },
         },
       };
 
       const rzp1 = new window.Razorpay(options);
-      rzp1.on("payment.failed", async function (response) {
-        console.error("Payment Failed:", response);
-        toast.error("Payment failed. Please try again.");
-        try {
-          await AxiosBase.delete(`/api/store/order/delete/${data.order.id}`);
-          toast.success("Order deleted successfully.");
-        } catch (error) {
-          console.error("Failed to delete the order:", error);
-          toast.error("Failed to clean up the order. Please contact support.");
-        }
-      });
 
       rzp1.open();
     } catch (error) {
