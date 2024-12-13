@@ -6,6 +6,7 @@ import { fetchallproductsSlice } from "@/features/allproductsSlice";
 import ProductModal from "../OneProductDetailSheet/ProductModal";
 import OneProductDetailSheet from "../OneProductDetailSheet/OneProductDetailSheet";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Badge } from "@/components/ui/badge";
 
 const AllProducts = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,10 @@ const AllProducts = () => {
       <h2 className="text-3xl md:text-4xl font-bold text-center text-amber-800 mb-12">
         Sacred Essentials
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div
+        id="allproducts"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+      >
         {loading &&
           Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="space-y-4">
@@ -50,7 +54,10 @@ const AllProducts = () => {
               >
                 <div className="relative h-72 w-72">
                   <img
-                    src={item.imageUrl}
+                    src={
+                      item.imageUrl ||
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLhnhmcS5dy1pOq9OA6HOI4_jvpc0zKa_4xA&s"
+                    }
                     alt={item.name}
                     className="w-full h-full object-cover bg-center"
                   />
@@ -60,8 +67,7 @@ const AllProducts = () => {
                     {item.name}
                   </h3>
                   <p className="text-sm line-clamp-2 font-semibold text-amber-800/50 mb-2">
-                    These products are evident in every offering. Truly a
-                    blessing for any devotee...
+                    {item.description}
                   </p>
                   <div className="flex items-center justify-start space-x-4">
                     <p className="text-sm font-semibold text-amber-700">
@@ -73,9 +79,9 @@ const AllProducts = () => {
                     <p className="text-sm font-bold text-primary tracking-wider">
                       ₹{discountedPrice}
                     </p>
-                    <span className="bg-primary text-white text-[10px] px-1 py-[1px] ml-2 font-semibold">
+                    <Badge className="bg-primary text-white text-[10px] px-1 py-[1px] ml-2 font-semibold">
                       Save {item.discountPercent}%
-                    </span>
+                    </Badge>
                   </div>
                   <motion.div
                     whileHover={{ scale: 1.05 }}

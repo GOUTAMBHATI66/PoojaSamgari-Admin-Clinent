@@ -1,7 +1,13 @@
-import React from "react";
 import { motion } from "framer-motion";
 
 const HeroSection = () => {
+  const scrollToSection = () => {
+    const section = document.getElementById("allproducts");
+    console.log(section);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <div
       className="relative h-screen bg-cover bg-center flex items-center justify-center text-white"
@@ -39,6 +45,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 1 }}
+          onClick={scrollToSection}
         >
           <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition-all">
             Explore Now

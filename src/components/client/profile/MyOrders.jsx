@@ -93,78 +93,86 @@ function OrderList({ orders, isLoading, getStatusColor }) {
   }
 
   return (
-    <div className="space-y-6">
-      {orders.map((order) => (
-        <Card key={order.id} className="w-full">
-          <CardHeader>
-            <CardTitle className="flex justify-between items-center">
-              <span>Order #{order.id}</span>
-              <Badge className={getStatusColor(order.deliveryStatus)}>
-                {order.deliveryStatus}
-              </Badge>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4">
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-                <div>
-                  <p className="text-sm font-medium">Date Placed</p>
-                  <p className="text-sm text-gray-500">
-                    {formatDate(order.createdAt)}
-                  </p>
+    <section>
+      <p className="text-muted-foreground text-sm ">Total {orders.length}</p>
+      <div className="space-y-6">
+        {orders.map((order) => (
+          <Card key={order.id} className="w-full">
+            <CardHeader>
+              <CardTitle className="flex justify-between items-center">
+                <span>Order #{order.id}</span>
+                <Badge className={getStatusColor(order.deliveryStatus)}>
+                  {order.deliveryStatus}
+                </Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-4">
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                  <div>
+                    <p className="text-sm font-medium">Date Placed</p>
+                    <p className="text-sm text-gray-500">
+                      {formatDate(order.createdAt)}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium">Total Amount</p>
+                    <p className="text-sm text-gray-500">
+                      ₹{order.totalAmount.toFixed(2)}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium">Payment Method</p>
+                    <p className="text-sm text-gray-500">
+                      {order.paymentMethod}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium">Status</p>
+                    <p className="text-sm text-gray-500">{order.status}</p>
+                  </div>
                 </div>
                 <div>
-                  <p className="text-sm font-medium">Total Amount</p>
-                  <p className="text-sm text-gray-500">
-                    ₹{order.totalAmount.toFixed(2)}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm font-medium">Payment Method</p>
-                  <p className="text-sm text-gray-500">{order.paymentMethod}</p>
-                </div>
-                <div>
-                  <p className="text-sm font-medium">Status</p>
-                  <p className="text-sm text-gray-500">{order.status}</p>
+                  <h4 className="text-sm font-medium mb-2">Order Items</h4>
+                  <div className="grid gap-4">
+                    {order.orderItems.map((item) => (
+                      <div
+                        key={item.id}
+                        className="flex items-center space-x-4"
+                      >
+                        <div className="relative h-16 w-16 overflow-hidden rounded">
+                          <img
+                            src={
+                              item.product.imageUrl ||
+                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLhnhmcS5dy1pOq9OA6HOI4_jvpc0zKa_4xA&s"
+                            }
+                            alt={item.product.name}
+                            className="object-cover"
+                            width={64}
+                            height={64}
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium truncate">
+                            {item.product.name}
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            Qty: {item.quantity}
+                          </p>
+                        </div>
+                        <div className="text-sm font-medium">
+                          ₹{item.price.toFixed(2)}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-              <div>
-                <h4 className="text-sm font-medium mb-2">Order Items</h4>
-                <div className="grid gap-4">
-                  {order.orderItems.map((item) => (
-                    <div key={item.id} className="flex items-center space-x-4">
-                      <div className="relative h-16 w-16 overflow-hidden rounded">
-                        <img
-                          src={
-                            item.product.imageUrl ||
-                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLhnhmcS5dy1pOq9OA6HOI4_jvpc0zKa_4xA&s"
-                          }
-                          alt={item.product.name}
-                          className="object-cover"
-                          width={64}
-                          height={64}
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium truncate">
-                          {item.product.name}
-                        </p>
-                        <p className="text-sm text-gray-500">
-                          Qty: {item.quantity}
-                        </p>
-                      </div>
-                      <div className="text-sm font-medium">
-                        ₹{item.price.toFixed(2)}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </section>
   );
 }
 
