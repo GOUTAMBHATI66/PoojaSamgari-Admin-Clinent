@@ -134,7 +134,7 @@ const OrderPage = () => {
                     {order.shippingAddress.email}
                   </TableCell>
                   <TableCell>&#8377;{order.totalAmount.toFixed(2)}</TableCell>
-                  <TableCell>{order.paymentMethod}</TableCell>
+                 
                   <TableCell>
                     {order.orderItems.map((item) => (
                       <div key={item.id} className="mb-2">
@@ -147,6 +147,7 @@ const OrderPage = () => {
                       </div>
                     ))}
                   </TableCell>
+                  <TableCell>{order.paymentMethod}</TableCell>
                   <TableCell>{deliveryStatuses[order.id]}</TableCell>
                   <TableCell>
                     <Select
