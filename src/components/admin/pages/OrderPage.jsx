@@ -58,12 +58,10 @@ const OrderPage = () => {
         ...prevStatuses,
         [orderId]: newStatus,
       }));
-
       const { data } = await AxiosBase.put(
-        `/api/admin//order/update/${orderId}/`,
+        `/api/admin/order/update/${orderId}`,
         { status: newStatus }
       );
-
       if (!data.success)
         throw new Error(data.message || "Failed to update status.");
       toast.success("Status updated successfully");
@@ -134,7 +132,7 @@ const OrderPage = () => {
                     {order.shippingAddress.email}
                   </TableCell>
                   <TableCell>&#8377;{order.totalAmount.toFixed(2)}</TableCell>
-                 
+
                   <TableCell>
                     {order.orderItems.map((item) => (
                       <div key={item.id} className="mb-2">

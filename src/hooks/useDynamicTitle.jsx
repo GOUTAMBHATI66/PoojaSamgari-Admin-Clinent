@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const useDynamicTitle = () => {
@@ -9,7 +9,7 @@ const useDynamicTitle = () => {
 
     const title =
       path === "/"
-        ? "Home - Shree-Swastik"
+        ? "Shree Swastik"
         : `${path
             .replace("/", "")
             .replace(/-/g, " ")
