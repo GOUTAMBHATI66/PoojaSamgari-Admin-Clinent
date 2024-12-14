@@ -1,22 +1,22 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import AxiosBase from "@/lib/axios";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // Async thunk for fetching data
 export const fetchproductdetailSlice = createAsyncThunk(
-  'productdetailSlice/fetchproductdetailSlice',
+  "productdetailSlice/fetchproductdetailSlice",
   async (slug, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_BACKEND_URL}/api/store/products/${slug}`);
+      const response = await AxiosBase.get(`/api/store/products/${slug}`);
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data || 'Error fetching data');
+      return rejectWithValue(error.response.data || "Error fetching data");
     }
   }
 );
 
 // Slice definition
 const productdetailSlice = createSlice({
-  name: 'productdetailSlice',
+  name: "productdetailSlice",
   initialState: {
     data: [],
     loading: false,

@@ -1,14 +1,12 @@
+import AxiosBase from "@/lib/axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
 // Async thunk for fetching data
 export const fetchallproductsSlice = createAsyncThunk(
   "allproductsSlice/fetchallproductsSlice",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_BACKEND_URL}/api/store/products`
-      );
+      const response = await AxiosBase.get(`/api/store/products`);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data || "Error fetching data");

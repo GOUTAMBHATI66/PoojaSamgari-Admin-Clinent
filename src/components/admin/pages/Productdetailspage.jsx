@@ -128,7 +128,7 @@ const ProductDetailsPage = () => {
         <div className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Order Summary */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
+            <div className="bg-secondary p-6 rounded-lg shadow-md">
               <h2 className="text-xl font-semibold mb-4 flex items-center text-gray-800">
                 <FaRupeeSign className="mr-2 text-[#f7b232]" /> Order Summary
               </h2>
@@ -155,7 +155,7 @@ const ProductDetailsPage = () => {
             </div>
 
             {/* Customer Details */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
+            <div className="bg-secondary p-6 rounded-lg shadow-md">
               <h2 className="text-xl font-semibold mb-4 flex items-center text-gray-800">
                 <FaUser className="mr-2 text-[#f7b232]" /> Customer Details
               </h2>
@@ -174,7 +174,7 @@ const ProductDetailsPage = () => {
             </div>
 
             {/* Shipping Address */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
+            <div className="bg-secondary p-6 rounded-lg shadow-md">
               <h2 className="text-xl font-semibold mb-4 flex items-center text-gray-800">
                 <FaShippingFast className="mr-2 text-[#f7b232]" /> Shipping
                 Address
@@ -199,7 +199,7 @@ const ProductDetailsPage = () => {
             </div>
 
             {/* Order Status */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
+            <div className="bg-secondary p-6 rounded-lg shadow-md">
               <h2 className="text-xl font-semibold mb-4 flex items-center text-gray-800">
                 <FaClock className="mr-2 text-[#f7b232]" /> Order Status
               </h2>
@@ -217,12 +217,12 @@ const ProductDetailsPage = () => {
                 <Select
                   value={orderData.deliveryStatus}
                   onValueChange={(value) => handleStatusChange(value)}
-                  className="form-select block w-full mt-1  rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  className="form-select block w-full mt-1  rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 "
                 >
-                  <SelectTrigger className="w-full">
+                  <SelectTrigger className="w-full bg-white">
                     <SelectValue placeholder="update delivery status" />
                   </SelectTrigger>
-                  <SelectContent className="bg-white">
+                  <SelectContent className="bg-secondary">
                     <SelectItem value="PENDING">Pending</SelectItem>
                     <SelectItem value="SHIPPED">Shipped</SelectItem>
                     <SelectItem value="OUT_FOR_DELIVERY">
@@ -240,9 +240,9 @@ const ProductDetailsPage = () => {
             <h2 className="text-2xl font-semibold mb-4 text-gray-800 flex items-center">
               <FaBox className="mr-2 text-[#f7b232]" /> Order Items
             </h2>
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="bg-secondary rounded-lg shadow-md overflow-hidden">
               <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+                <thead className="bg-zinc-100">
                   <tr>
                     <th
                       scope="col"
@@ -270,7 +270,7 @@ const ProductDetailsPage = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-secondary divide-y divide-gray-200">
                   {orderData.orderItems.map((item, index) => (
                     <tr key={index}>
                       <td className="px-6 py-4 whitespace-nowrap">

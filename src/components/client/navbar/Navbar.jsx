@@ -7,10 +7,10 @@ const Navbar = () => {
   const { products, status } = useSelector((state) => state.cartSlice);
 
   return (
-    <nav className="bg-white/90 sticky top-0 z-50">
+    <nav className=" backdrop-blur-lg backdrop-filter  sticky top-0 z-50">
       <div className="h-14 flex items-center justify-between container">
         <Link to={"/"} className="text-xl font-bold font-serif text-orange-600">
-          || SWASTIK ||
+          <img src="/logo.png" alt="Company Logo" className="w-10 h-auto" />
         </Link>
 
         <div className="flex items-center justify-center gap-x-4">

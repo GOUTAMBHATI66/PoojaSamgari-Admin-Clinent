@@ -1,3 +1,4 @@
+import AxiosBase from "@/lib/axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -9,7 +10,10 @@ export const fetchCartProducts = createAsyncThunk(
 
     const productIds = Object.keys(cart);
 
-    const response = await axios.post(`${import.meta.env.VITE_API_BACKEND_URL}/api/store/products/cart`, productIds);
+    const response = await AxiosBase.post(
+      `/api/store/products/cart`,
+      productIds
+    );
     return response.data?.data?.map((product) => ({
       ...product,
       quantity: cart[product.id],
@@ -79,5 +83,6 @@ const updateLocalStorage = (products) => {
 };
 
 // Export actions and reducer
-export const { addItem, removeItem, updateQuantity, clearCart } = cartSlice.actions;
+export const { addItem, removeItem, updateQuantity, clearCart } =
+  cartSlice.actions;
 export default cartSlice.reducer;

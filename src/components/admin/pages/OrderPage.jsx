@@ -91,7 +91,7 @@ const OrderPage = () => {
                     key={order.id}
                   >
                     <TableCell>{(page - 1) * size + index + 1}</TableCell>
-                    <TableCell>
+                    <TableCell className="underline ">
                       <Link to={`/admin/orders/${order.id}`}>
                         {order.user?.name || "N/A"}
                       </Link>
