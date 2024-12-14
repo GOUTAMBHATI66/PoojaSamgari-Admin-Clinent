@@ -38,7 +38,11 @@ function EditProduct() {
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    setSingleProduct((prev) => ({ ...prev, [id]: value }));
+    let updatedValue = value;
+    if (id === "price") {
+      updatedValue = Math.max(1, value);
+    }
+    setSingleProduct((prev) => ({ ...prev, [id]: updatedValue }));
   };
 
   const handleSubmit = async (e) => {
@@ -51,7 +55,7 @@ function EditProduct() {
         singleProduct
       );
       if (!data.success) throw new Error("Failed to update product");
-      toast.success(data.message || "Product updated successfully")
+      toast.success(data.message || "Product updated successfully");
 
       navigate("/admin/products");
     } catch (error) {
@@ -96,7 +100,7 @@ function EditProduct() {
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-2xl font-bold ">Edit Product Details</h3>
         <Button
-          disabled={!isFormChanged || !isFormValid || isSubmitting}
+          disabled={!isFormChanged || isSubmitting}
           onClick={handleSubmit}
         >
           {isSubmitting ? "Updating..." : "Update"}
@@ -135,6 +139,7 @@ function EditProduct() {
               <input
                 type="number"
                 id="price"
+                name="price"
                 value={singleProduct.price}
                 onChange={handleInputChange}
                 placeholder="Enter product price"
@@ -226,7 +231,7 @@ function EditProduct() {
               <X
                 size={30}
                 onClick={handleRemoveImage}
-                className="p-0.5 absolute top-2 right-2 rounded-full bg-secondary cursor-pointer"
+                className="p-0.5 absolute top-[-10px] right-[-10px]  border-black border-2 text-white rounded-full  bg-red-500 cursor-pointer"
               />
             </div>
           ) : (

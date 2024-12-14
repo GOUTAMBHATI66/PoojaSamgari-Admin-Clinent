@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import Footer from "../footer/Footer";
 import Navbar from "../navbar/Navbar";
 import { Button } from "@/components/ui/button";
-import MyOrders from "./MyOrders";
-import UserForm from "./UserForm";
 import { useAuth } from "@/components/context/AuthContext";
 import { FaCubesStacked, FaLocationArrow } from "react-icons/fa6";
 import useLogout from "@/hooks/useLogout";
 import { Loader, LucideLogOut } from "lucide-react";
 import { motion } from "framer-motion";
+import { Skeleton } from "@/components/ui/skeleton";
+import { OrderSkeleton } from "@/components/shared/OrderSkeleton";
 
 const ProfilePage = () => {
+  const UserForm = lazy(() => import("../profile/UserForm"));
+  const MyOrders = lazy(() => import("../profile/MyOrders"));
+
   const { authUser } = useAuth();
   const { isPending, handleLogout } = useLogout();
 
@@ -33,7 +36,7 @@ const ProfilePage = () => {
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="h-[500px] flex flex-col justify-between gap-3 p-4 border-secondary border-2  sticky  top-20  rounded-xl"
+          className=" h-auto lg:h-[500px] flex flex-col justify-between gap-3 p-4 border-secondary border-2   lg:sticky  top-20  rounded-xl"
         >
           <div className="flex flex-col gap-4">
             <h2 className=" text-xl text-slate-700 font-semibold mb-2 pb-2 border-b   border-double">
@@ -102,8 +105,20 @@ const ProfilePage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          {showMyOrders && <MyOrders />}
-          {showShippingAdd && <UserForm />}
+          {showShippingAdd && (
+            <Suspense
+              fallback={[...Array(6)].map((_, idx) => (
+                <Skeleton key={idx} className="h-10 my-4  rounded-lg w-full" />
+              ))}
+            >
+              <UserForm />
+            </Suspense>
+          )}
+          {showMyOrders && (
+            <Suspense fallback={OrderSkeleton}>
+              <MyOrders />
+            </Suspense>
+          )}
         </motion.div>
       </main>
 

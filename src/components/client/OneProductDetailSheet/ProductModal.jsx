@@ -6,8 +6,9 @@ import Counter from "./Counter";
 import { FaShoppingCart } from "react-icons/fa";
 import { addItem } from "@/features/cartSlice";
 import toast from "react-hot-toast";
+import { Badge } from "@/components/ui/badge";
 
-const ProductModal = ({ slug ,onAddToCart}) => {
+const ProductModal = ({ slug, onAddToCart }) => {
   const [quantity, setquantity] = useState("");
   const dispatch = useDispatch();
   const { data, loading, error } = useSelector(
@@ -29,7 +30,11 @@ const ProductModal = ({ slug ,onAddToCart}) => {
     <div className="flex flex-col p-4 justify-between h-screen pb-10 overflow-y-auto hide-scrollbar space-y-3">
       <div className="flex flex-col items-start justify-start space-y-3">
         <div className="w-full h-72 rounded-lg overflow-hidden shadow-md">
-          <img src="dfgdf" alt="fgf" className="object-cover w-full h-full" />
+          <img
+            src={data?.data?.imageUrl}
+            alt={data?.data?.name}
+            className="object-cover w-full h-full"
+          />
         </div>
         <h2 className="text-lg font-semibold ">{data?.data?.name}</h2>
         <p className="text-sm text-muted-foreground">
@@ -45,9 +50,9 @@ const ProductModal = ({ slug ,onAddToCart}) => {
           <p className="text-sm font-bold text-primary tracking-wider">
             ₹{discountedPrice.toFixed(2)}
           </p>
-          <span className="bg-primary text-white text-[10px] px-1 py-[1px] ml-2 font-semibold">
+          <Badge className=" text-[10px]  ml-2 font-semibold">
             Save {data?.data?.discountPercent}%
-          </span>
+          </Badge>
         </div>
 
         <div className="flex gap-x-4 items-center">
@@ -58,12 +63,12 @@ const ProductModal = ({ slug ,onAddToCart}) => {
 
       <div className="w-full">
         <motion.button
-        onClick={handleAddToCart}
+          onClick={handleAddToCart}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="bg-gradient-to-r from-amber-500 to-orange-500  text-white px-4 py-2 rounded-sm text-sm font-semibold w-full flex items-center justify-center"
         >
-            Add to Cart <FaShoppingCart className="w-4 h-4 ml-2" />
+          Add to Cart <FaShoppingCart className="w-4 h-4 ml-2" />
         </motion.button>
       </div>
     </div>

@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
 import { formatDate } from "@/lib/utils";
 import { useAuth } from "@/components/context/AuthContext";
 import AxiosBase from "@/lib/axios";
+import { OrderSkeleton } from "@/components/shared/OrderSkeleton";
 
 export default function MyOrders() {
   const [orders, setOrders] = useState([]);
@@ -48,7 +48,7 @@ export default function MyOrders() {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-8">My Orders</h1>
       <Tabs defaultValue="all" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-3 sticky  items-center justify-center top-14 bg-muted border-2 border-secondary   z-50 ">
           <TabsTrigger value="all">All Orders</TabsTrigger>
           <TabsTrigger value="pending">Pending</TabsTrigger>
           <TabsTrigger value="completed">Delivered</TabsTrigger>
@@ -173,49 +173,5 @@ function OrderList({ orders, isLoading, getStatusColor }) {
         ))}
       </div>
     </section>
-  );
-}
-
-function OrderSkeleton() {
-  return (
-    <div className="space-y-6">
-      {[...Array(3)].map((_, index) => (
-        <Card key={index} className="w-full">
-          <CardHeader>
-            <CardTitle className="flex justify-between items-center">
-              <Skeleton className="h-4 w-[100px]" />
-              <Skeleton className="h-5 w-[80px]" />
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4">
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-                {[...Array(4)].map((_, i) => (
-                  <div key={i}>
-                    <Skeleton className="h-4 w-[100px] mb-2" />
-                    <Skeleton className="h-4 w-[80px]" />
-                  </div>
-                ))}
-              </div>
-              <div>
-                <Skeleton className="h-4 w-[100px] mb-2" />
-                <div className="space-y-4">
-                  {[...Array(2)].map((_, i) => (
-                    <div key={i} className="flex items-center space-x-4">
-                      <Skeleton className="h-16 w-16 rounded" />
-                      <div className="flex-1">
-                        <Skeleton className="h-4 w-[200px] mb-2" />
-                        <Skeleton className="h-4 w-[100px]" />
-                      </div>
-                      <Skeleton className="h-4 w-[80px]" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
   );
 }

@@ -52,14 +52,14 @@ const AllProducts = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="bg-white rounded-sm border overflow-hidden transform hover:scale-105 transition-transform duration-300"
               >
-                <div className="relative h-72 w-72">
+                <div className="relative h-72 w-full">
                   <img
                     src={
                       item.imageUrl ||
                       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLhnhmcS5dy1pOq9OA6HOI4_jvpc0zKa_4xA&s"
                     }
                     alt={item.name}
-                    className="w-full h-full object-cover bg-center"
+                    className="w-full h-full object-fill bg-center"
                   />
                 </div>
                 <div className="p-4">
@@ -79,7 +79,7 @@ const AllProducts = () => {
                     <p className="text-sm font-bold text-primary tracking-wider">
                       ₹{discountedPrice}
                     </p>
-                    <Badge className="bg-primary text-white text-[10px] px-1 py-[1px] ml-2 font-semibold">
+                    <Badge className=" text-[10px]  ml-2 font-semibold">
                       Save {item.discountPercent}%
                     </Badge>
                   </div>

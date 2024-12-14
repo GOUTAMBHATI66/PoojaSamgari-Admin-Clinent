@@ -7,6 +7,7 @@ import { useAuth } from "@/components/context/AuthContext";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { clearCart } from "@/features/cartSlice";
+import { FaLeftLong } from "react-icons/fa6";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -41,7 +42,9 @@ const CheckoutPage = () => {
       if (paymentMethod === "COD" && data.success) {
         toast.success("Order placed successfully");
         navigate("/profile");
-        dispatch(clearCart());
+        setTimeout(() => {
+          dispatch(clearCart());
+        }, 1000);
         return;
       }
 
@@ -66,8 +69,10 @@ const CheckoutPage = () => {
             );
             if (verifyResponse.success) {
               toast.success("Payment Successful!");
-              dispatch(clearCart());
               navigate("/profile");
+              setTimeout(() => {
+                dispatch(clearCart());
+              }, 1000);
             } else {
               throw new Error("Payment verification failed");
             }
@@ -122,39 +127,61 @@ const CheckoutPage = () => {
   };
 
   return (
-    <main className="container mx-auto md:p-6 flex flex-col gap-8 items-center justify-center w-full">
-      <OrderSummary products={products} status={status} />
-
-      <div>
-        <div className="mt-4">
-          <label className="block">
-            <input
-              type="radio"
-              name="paymentMethod"
-              value="COD"
-              checked={paymentMethod === "COD"}
-              onChange={() => setPaymentMethod("COD")}
-            />
-            Cash on Delivery
-          </label>
-          <label className="block">
-            <input
-              type="radio"
-              name="paymentMethod"
-              value="ONLINE"
-              checked={paymentMethod === "ONLINE"}
-              onChange={() => setPaymentMethod("ONLINE")}
-            />
-            Online Payment
-          </label>
-        </div>
-        <Button
-          onClick={handleCheckout}
-          disabled={products.length === 0}
-          className="mt-6 bg-blue-700 hover:bg-blue-500 text-white font-medium rounded-lg py-3 w-full transition-all"
+    <main className="container mx-auto  py-8 md:py-12">
+      {/* Header with Back Button and Logo */}
+      <header className="flex items-center justify-between border-b  pb-2 sticky top-0 bg-background z-50">
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-all"
         >
-          Pay
-        </Button>
+          <FaLeftLong />
+          Back
+        </button>
+        <img src="/logo.png" alt="Company Logo" className="w-10 h-auto" />
+      </header>
+
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
+        {/* Order Summary */}
+        <OrderSummary products={products} status={status} authUser={authUser} />
+
+        {/* Payment Section */}
+        <section className="p-6 space-y-6 sticky top-20 self-start  border  rounded-lg">
+          <h2 className="text-xl font-bold text-gray-800">Payment Details</h2>
+
+          <div className="space-y-4">
+            <label className="flex items-center gap-3">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="COD"
+                checked={paymentMethod === "COD"}
+                onChange={() => setPaymentMethod("COD")}
+                className="h-5 w-5 text-blue-600 focus:ring focus:ring-blue-300"
+              />
+              <span className="text-gray-700">Cash on Delivery</span>
+            </label>
+            <label className="flex items-center gap-3">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="ONLINE"
+                checked={paymentMethod === "ONLINE"}
+                onChange={() => setPaymentMethod("ONLINE")}
+                className="h-5 w-5 text-blue-600 focus:ring focus:ring-blue-300"
+              />
+              <span className="text-gray-700">Online Payment</span>
+            </label>
+          </div>
+
+          <Button
+            onClick={handleCheckout}
+            disabled={products.length === 0}
+            className="mt-6 bg-blue-600  group overflow-hidden relative hover:font-bold hover:text-lg  text-white font-medium rounded-lg py-3 w-full transition-all"
+          >
+            &#8377; Pay Now
+            <span className="absolute inset-0 bg-blue-800  transition-transform transform translate-x-[-100%] group-hover:translate-x-0 z-[-1]"></span>
+          </Button>
+        </section>
       </div>
     </main>
   );

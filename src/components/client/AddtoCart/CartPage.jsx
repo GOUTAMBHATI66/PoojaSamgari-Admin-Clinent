@@ -8,6 +8,8 @@ import {
 } from "@/features/cartSlice";
 import Counter from "./Counter";
 import ShippingAddress from "../Checkout/ShippingAddress";
+import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -34,16 +36,12 @@ const CartPage = () => {
     dispatch(removeItem(id));
   };
 
-  const onCheckout = () => {
-    navigate("/checkout");
-  };
-
   return (
-    <div className="py-4 flex flex-col justify-between h-screen pb-10">
+    <div className="py-4 flex flex-col justify-between h-screen  pb-10">
       <div className="flex flex-col space-y-6">
         <div className="flex justify-around items-center space-x-2">
           {status === "loading" ? (
-            <p>Loading...</p>
+            <Skeleton className=" w-14 h-5 " />
           ) : (
             <div className="font-semibold flex items-center space-x-3">
               <span className="text-xl">Cart</span>
@@ -58,66 +56,68 @@ const CartPage = () => {
             <p>Your cart is empty.</p>
           </div>
         )}
-        {status === "succeeded" && products.length > 0 && (
-          <div className="mt-4 space-y-4 max-h-[60vh] overflow-y-auto px-3">
-            {products.map((item) => {
-              const discountedPrice =
-                item.price - (item.price * item.discountPercent) / 100;
-              return (
-                <div
-                  key={item.id}
-                  className="flex items-center justify-between py-2"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="sm:w-20 sm:h-20 w-16 h-16">
-                      <img
-                        src={
-                          item.imageUrl ||
-                          "https://via.placeholder.com/100x100/cccccc/FFFFFF?text=Image"
-                        }
-                        alt={item.name}
-                        className="object-cover rounded"
-                      />
+        {status !== "loading" &&
+          status === "succeeded" &&
+          products.length > 0 && (
+            <div className="mt-4 space-y-4 max-h-[60vh] overflow-y-auto px-3">
+              {products.map((item) => {
+                const discountedPrice =
+                  item.price - (item.price * item.discountPercent) / 100;
+                return (
+                  <div
+                    key={item.id}
+                    className="flex items-center justify-between py-2"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="sm:w-20 sm:h-20 w-16 h-16">
+                        <img
+                          src={
+                            item.imageUrl ||
+                            "https://via.placeholder.com/100x100/cccccc/FFFFFF?text=Image"
+                          }
+                          alt={item.name}
+                          className="object-cover rounded"
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <h3 className="font-medium sm:text-sm text-xs">
+                          {item.name}
+                        </h3>
+                        <p className="text-xs text-muted-foreground line-clamp-1">
+                          {item.description}
+                        </p>
+                        <p className="text-xs">
+                          Price:{" "}
+                          <span className="line-through text-muted-foreground text-xs">
+                            ₹{item.price}
+                          </span>{" "}
+                          <span className="text-primary font-semibold">
+                            ₹{discountedPrice}
+                          </span>
+                          <Badge className=" text-[10px]  ml-2 font-semibold">
+                            Save {item.discountPercent}%
+                          </Badge>
+                        </p>
+                      </div>
                     </div>
-                    <div className="space-y-1">
-                      <h3 className="font-medium sm:text-sm text-xs">
-                        {item.name}
-                      </h3>
-                      <p className="text-xs text-muted-foreground line-clamp-1">
-                        {item.description}
-                      </p>
-                      <p className="text-xs">
-                        Price:{" "}
-                        <span className="line-through text-muted-foreground text-xs">
-                          ₹{item.price.toFixed(2)}
-                        </span>{" "}
-                        <span className="text-primary font-semibold">
-                          ₹{discountedPrice.toFixed(2)}
-                        </span>
-                        <span className="font-bold bg-primary text-white text-xs px-1 ml-2 rounded">
-                          Save {item.discountPercent}%
-                        </span>
-                      </p>
+                    <div className="flex items-center space-x-2">
+                      <Counter
+                        id={item.id}
+                        initialQuantity={item.quantity}
+                        handleQuantityChange={handleQuantityChange}
+                      />
+                      <button onClick={() => handleRemove(item.id)}>
+                        <MdDeleteForever
+                          size={25}
+                          className="text-red-500 hover:text-red-600 transition-all hover:scale-110"
+                        />
+                      </button>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <Counter
-                      id={item.id}
-                      initialQuantity={item.quantity}
-                      handleQuantityChange={handleQuantityChange}
-                    />
-                    <button onClick={() => handleRemove(item.id)}>
-                      <MdDeleteForever
-                        size={25}
-                        className="text-red-500 hover:text-red-600 transition-all hover:scale-110"
-                      />
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
+                );
+              })}
+            </div>
+          )}
       </div>
       <div className="mt-6 border-t pt-4 space-y-3 px-6">
         <div className="flex justify-between text-lg font-semibold">

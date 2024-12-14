@@ -7,6 +7,11 @@ import { Button } from "@/components/ui/button";
 import { MdArrowBack, MdOutlinePublishedWithChanges } from "react-icons/md";
 import { TbArrowLeftFromArc, TbArrowRightFromArc } from "react-icons/tb";
 import { ArrowRight } from "lucide-react";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 export default function ProductForm() {
   const navigate = useNavigate();
@@ -38,7 +43,13 @@ export default function ProductForm() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setProductData({ ...productData, [name]: value });
+    let updatedValue = value;
+
+    if (name === "price" || name === "discountPercent") {
+      updatedValue = Math.max(1, value);
+    }
+
+    setProductData({ ...productData, [name]: updatedValue });
   };
 
   const handlePublish = async () => {
@@ -94,9 +105,15 @@ export default function ProductForm() {
             value={productData.price}
             onChange={handleInputChange}
             placeholder="Price..."
+            min="1"
             className="w-full p-3 border rounded mt-1 mb-4 outline-none bg-background"
           />
-          <span>Discount Percent* (optional)</span>
+          <span>
+            Discount Percent* (optional)
+            <span className="text-xs ml-2 text-muted-foreground">
+              In Percent %
+            </span>
+          </span>
           <input
             type="number"
             name="discountPercent"
@@ -115,18 +132,23 @@ export default function ProductForm() {
             className="w-full p-3 border rounded mt-1 mb-4 outline-none bg-background"
           ></textarea>
           <div className="flex justify-end ">
-            <Button
-              variant="outline"
-              disabled={
-                !productData.price ||
-                !productData.name ||
-                !productData.description
-              }
-              onClick={handleNext}
-            >
-              Next
-              <ArrowRight />
-            </Button>
+            <HoverCard>
+              <HoverCardTrigger>
+                <Button
+                  variant="outline"
+                  disabled={
+                    !productData.price ||
+                    !productData.name ||
+                    !productData.description
+                  }
+                  onClick={handleNext}
+                >
+                  Next
+                  <ArrowRight />
+                </Button>
+              </HoverCardTrigger>
+              <HoverCardContent>Fill details to next.</HoverCardContent>
+            </HoverCard>
           </div>
         </div>
       )}
@@ -170,17 +192,22 @@ export default function ProductForm() {
               <MdArrowBack />
               Back
             </Button>
-            <Button
-              variant="outline"
-              disabled={
-                !productData.category | !productData.imageUrl ||
-                !productData.stock
-              }
-              onClick={handleNext}
-            >
-              Next
-              <ArrowRight />
-            </Button>
+            <HoverCard>
+              <HoverCardTrigger>
+                <Button
+                  variant="outline"
+                  disabled={
+                    !productData.category | !productData.imageUrl ||
+                    !productData.stock
+                  }
+                  onClick={handleNext}
+                >
+                  Next
+                  <ArrowRight />
+                </Button>
+              </HoverCardTrigger>
+              <HoverCardContent>Fill details to next.</HoverCardContent>
+            </HoverCard>
           </div>
         </div>
       )}
@@ -190,7 +217,7 @@ export default function ProductForm() {
           <h2 className="text-2xl font-semibold mb-4">
             Step 3 : Preview and Publish
           </h2>
-          <div className="flex flex-col gap-2 p-4 border rounded mb-4">
+          <div className="flex flex-col gap-2 p-4  rounded mb-4">
             <h3 className="text-lg font-bold">
               Name : <span className=" font-">{productData.name}</span>
             </h3>

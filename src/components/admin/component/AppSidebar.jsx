@@ -45,14 +45,19 @@ export function AppSidebar() {
     <Sidebar
       collapsible="icon"
       variant="floating"
-      className="bg-secondary  ring-0"
+      className="bg-secondary ring-0"
     >
-      <SidebarContent className="ring-0 ">
+      <SidebarContent className="ring-0 bg-[#f5f2e9]  z-50">
         <SidebarGroup className="h-full">
-          <SidebarGroupLabel className="text-2xl uppercase font-serif tracking-wider text-primary font-bold">
-            Swastik
+          <SidebarGroupLabel className="flex items-center justify-between">
+            <img
+              src="/logo.png"
+              alt="Company Logo"
+              className="w-10 p-1   object-contain"
+            />
+            <span className="text-sm text-red-500 font-serif">Admin</span>
           </SidebarGroupLabel>
-          <SidebarGroupContent className="py-3  ">
+          <SidebarGroupContent className="py-3 mt-3  ">
             <SidebarSeparator />
 
             <SidebarMenu className="py-2 flex flex-col items-stretch justify-between">
@@ -65,15 +70,17 @@ export function AppSidebar() {
                     <SidebarMenuButton asChild isActive={isActive}>
                       <Link to={item.url}>
                         <item.icon
-                          className={` ${
-                            isActive ? "text-primary " : "text-slate-500"
-                          } dark:${
-                            isActive ? "text-blue-300" : "text-gray-300"
+                          className={` hover:text-muted-foreground ${
+                            isActive
+                              ? "text-muted-foreground "
+                              : "text-gray-500"
                           }`}
                         />
                         <span
-                          className={`text-base font-semibold ${
-                            isActive ? "text-primary  " : "text-slate-500"
+                          className={`text-base font-semibold hover:text-muted-foreground ${
+                            isActive
+                              ? " text-muted-foreground  "
+                              : "text-gray-500"
                           }`}
                         >
                           {item.title}
