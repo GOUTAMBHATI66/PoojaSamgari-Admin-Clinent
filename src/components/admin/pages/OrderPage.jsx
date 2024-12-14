@@ -18,6 +18,8 @@ import AxiosBase from "@/lib/axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
+import { formatDate } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 const OrderPage = () => {
   const [orders, setOrders] = useState([]);
@@ -52,29 +54,29 @@ const OrderPage = () => {
     }
   };
 
-  const handleStatusChange = async (orderId, newStatus) => {
-    try {
-      setDeliveryStatuses((prevStatuses) => ({
-        ...prevStatuses,
-        [orderId]: newStatus,
-      }));
-      const { data } = await AxiosBase.put(
-        `/api/admin/order/update/${orderId}`,
-        { status: newStatus }
-      );
-      if (!data.success)
-        throw new Error(data.message || "Failed to update status.");
-      toast.success("Status updated successfully");
-    } catch (error) {
-      console.error(error.message);
-      toast.error("Failed to update delivery status");
-    }
-  };
+  // const handleStatusChange = async (orderId, newStatus) => {
+  //   try {
+  //     setDeliveryStatuses((prevStatuses) => ({
+  //       ...prevStatuses,
+  //       [orderId]: newStatus,
+  //     }));
+  //     const { data } = await AxiosBase.put(
+  //       `/api/admin/order/update/${orderId}`,
+  //       { status: newStatus }
+  //     );
+  //     if (!data.success)
+  //       throw new Error(data.message || "Failed to update status.");
+  //     toast.success("Status updated successfully");
+  //   } catch (error) {
+  //     console.error(error.message);
+  //     toast.error("Failed to update delivery status");
+  //   }
+  // };
 
-  const handlePageChange = (newPage) => {
-    console.log(page, "sldjflsjdf");
-    setPage(newPage);
-  };
+  // const handlePageChange = (newPage) => {
+  //   console.log(page, "sldjflsjdf");
+  //   setPage(newPage);
+  // };
 
   useEffect(() => {
     fetchOrders();
@@ -103,74 +105,35 @@ const OrderPage = () => {
             <TableHeader>
               <TableRow>
                 <TableHead>S.No</TableHead>
-                <TableHead>Order ID</TableHead>
                 <TableHead>Customer Name</TableHead>
-                <TableHead>Shipping Address</TableHead>
-                <TableHead>Order Contact</TableHead>
                 <TableHead>Total Amount</TableHead>
                 <TableHead>Payment Type</TableHead>
-                <TableHead>Order Items</TableHead>
                 <TableHead>Payment Status</TableHead>
-                <TableHead>Update Status</TableHead>
+                <TableHead>Delivery Status</TableHead>
+                <TableHead>Date</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {orders.map((order, index) => (
-                <TableRow key={order.id}>
-                  <TableCell>{(page - 1) * size + index + 1}</TableCell>
-                  <TableCell>{order.id}</TableCell>
-                  <TableCell>{order.user?.name || "N/A"}</TableCell>
-                  <TableCell className="capitalize">
-                    <p>
-                      {order.shippingAddress?.street},{" "}
-                      {order.shippingAddress?.city},{" "}
-                      {order.shippingAddress?.state},{" "}
-                      {order.shippingAddress?.postalCode},{" "}
-                      {order.shippingAddress?.country}
-                    </p>
-                  </TableCell>
-                  <TableCell className="capitalize">
-                    <p>+{order.shippingAddress.phonenumber}</p>
-                    {order.shippingAddress.email}
-                  </TableCell>
-                  <TableCell>&#8377;{order.totalAmount.toFixed(2)}</TableCell>
+              {orders.map((order, index) => {
+                const newdate = formatDate(order.createdAt);
 
-                  <TableCell>
-                    {order.orderItems.map((item) => (
-                      <div key={item.id} className="mb-2">
-                        <span className="font-medium">
-                          {item.product?.name || "Unknown Product"}
-                        </span>
-                        <span className="ml-2 text-gray-500">
-                          x{item.quantity}
-                        </span>
-                      </div>
-                    ))}
-                  </TableCell>
-                  <TableCell>{order.paymentMethod}</TableCell>
-                  <TableCell>{deliveryStatuses[order.id]}</TableCell>
-                  <TableCell>
-                    <Select
-                      value={order.deliveryStatus}
-                      onValueChange={(newStatus) =>
-                        handleStatusChange(order.id, newStatus)
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select Status" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="PENDING">Pending</SelectItem>
-                        <SelectItem value="SHIPPED">Shipped</SelectItem>
-                        <SelectItem value="OUT_FOR_DELIVERY">
-                          Out for Delivery
-                        </SelectItem>
-                        <SelectItem value="DELIVERED">Delivered</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </TableCell>
-                </TableRow>
-              ))}
+                return (
+                  <TableRow key={order.id}>
+                    <TableCell>{(page - 1) * size + index + 1}</TableCell>
+                    <TableCell>
+                      <Link to={`/admin/orders/${order.id}`}>
+                      {order.user?.name || "N/A"}
+                      </Link>
+
+                    </TableCell>
+                    <TableCell>&#8377;{order.totalAmount.toFixed(2)}</TableCell>
+                    <TableCell>{order.paymentMethod}</TableCell>
+                    <TableCell>{order.status}</TableCell>
+                    <TableCell>{order.deliveryStatus}</TableCell>
+                    <TableCell>{newdate}</TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
 
@@ -186,7 +149,7 @@ const OrderPage = () => {
               Page {page} of {totalPages}
             </p>
             <Button
-             size="sm"
+              size="sm"
               disabled={page === totalPages}
               onClick={() => handlePageChange(page + 1)}
             >

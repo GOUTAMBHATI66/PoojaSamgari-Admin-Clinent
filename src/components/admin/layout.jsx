@@ -32,7 +32,6 @@ const Layout = () => {
             <DynamicBreadcrumb />
           </section>
         </nav>
-
         <div className="p-2 px-3 bg-background flex-1 lg:p-3">
           <Outlet />
         </div>
