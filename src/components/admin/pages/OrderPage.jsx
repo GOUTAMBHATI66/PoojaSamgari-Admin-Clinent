@@ -30,13 +30,11 @@ const OrderPage = () => {
       const { data } = await AxiosBase.get("/api/admin/orders", {
         params: { page, size },
       });
-      if (!data.success)
-        throw new Error(data.message || "Failed to fetch orders.");
+      if (!data.success) throw new Error();
       setOrders(data.data);
       setTotalPages(data.pagination.totalPages || 0);
     } catch (error) {
       console.error(error.message);
-      toast.error("Failed to fetch orders");
     } finally {
       setIsLoading(false);
     }
@@ -52,7 +50,7 @@ const OrderPage = () => {
 
   return (
     <main className="h-full">
-      <h2 className="text-primary bg-secondary  font-semibold text-xl mb-2 text-center py-1 rounded-sm">
+      <h2 className="text-primary bg-secondary font-semibold text-xl mb-2 text-center py-1 rounded-sm">
         All Orders
       </h2>
 
@@ -82,62 +80,31 @@ const OrderPage = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {orders.map((order, index) => (
-                <TableRow key={order.id}>
-                  <TableCell>{(page - 1) * size + index + 1}</TableCell>
-                  <TableCell>{order.id}</TableCell>
-                  <TableCell>{order.user?.name || "N/A"}</TableCell>
-                  <TableCell className="capitalize">
-                    <p>
-                      {order.shippingAddress?.street},{" "}
-                      {order.shippingAddress?.city},{" "}
-                      {order.shippingAddress?.state},{" "}
-                      {order.shippingAddress?.postalCode},{" "}
-                      {order.shippingAddress?.country}
-                    </p>
-                  </TableCell>
-                  <TableCell className="capitalize">
-                    <p>+{order.shippingAddress?.phonenumber}</p>
-                    {order.shippingAddress?.email}
-                  </TableCell>
-                  <TableCell>&#8377;{order.totalAmount?.toFixed(2)}</TableCell>
+              {orders.map((order, index) => {
+                const newdate = formatDate(order.createdAt);
 
-                  <TableCell>
-                    {order.orderItems?.map((item) => (
-                      <div key={item.id} className="mb-2">
-                        <span className="font-medium">
-                          {item.product?.name || "Unknown Product"}
-                        </span>
-                        <span className="ml-2 text-gray-500">
-                          x{item.quantity}
-                        </span>
-                      </div>
-                    ))}
-                  </TableCell>
-                  <TableCell>{order.paymentMethod}</TableCell>
-                  <TableCell>{deliveryStatuses[order.id]}</TableCell>
-                  <TableCell>
-                    <Select
-                      value={order.deliveryStatus}
-                      onValueChange={(newStatus) =>
-                        handleStatusChange(order.id, newStatus)
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select Status" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="PENDING">Pending</SelectItem>
-                        <SelectItem value="SHIPPED">Shipped</SelectItem>
-                        <SelectItem value="OUT_FOR_DELIVERY">
-                          Out for Delivery
-                        </SelectItem>
-                        <SelectItem value="DELIVERED">Delivered</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </TableCell>
-                </TableRow>
-              ))}
+                return (
+                  <TableRow
+                    onClick={() => navigate(`/admin/orders/${order.id}`)}
+                    key={order.id}
+                  >
+                    <TableCell>{(page - 1) * size + index + 1}</TableCell>
+                    <TableCell className="underline ">
+                      <Link to={`/admin/orders/${order.id}`}>
+                        {order.user?.name || "N/A"}
+                      </Link>
+                    </TableCell>
+                    <TableCell>&#8377;{order.totalAmount.toFixed(2)}</TableCell>
+                    <TableCell>{order.paymentMethod}</TableCell>
+                    <TableCell>{order.status}</TableCell>
+                    <TableCell>{order.deliveryStatus}</TableCell>
+                    <TableCell>{newdate}</TableCell>
+                    <TableCell className="underline text-blue-500 cursor-pointer">
+                      more info
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
 
