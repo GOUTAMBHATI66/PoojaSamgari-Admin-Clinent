@@ -49,13 +49,13 @@ export function AppSidebar() {
     >
       <SidebarContent className="ring-0 bg-[#f5f2e9]  z-50">
         <SidebarGroup className="h-full">
-          <SidebarGroupLabel className="flex items-center justify-between">
+          <SidebarGroupLabel className="flex gap-2 items-center">
             <img
               src="/logo.png"
               alt="Company Logo"
-              className="w-10 p-1   object-contain"
+              className="w-10 p-0.5 object-contain"
             />
-            <span className="text-sm text-red-500 font-serif">Admin</span>
+            <span className="text-red-500 font-serif text-2xl ">Admin</span>
           </SidebarGroupLabel>
           <SidebarGroupContent className="py-3 mt-3  ">
             <SidebarSeparator />

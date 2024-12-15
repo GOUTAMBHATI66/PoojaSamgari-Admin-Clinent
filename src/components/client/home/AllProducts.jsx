@@ -69,19 +69,25 @@ const AllProducts = () => {
                   <p className="text-sm line-clamp-2 font-semibold text-amber-800/50 mb-2">
                     {item.description}
                   </p>
-                  <div className="flex items-center justify-start space-x-4">
+                  <div className="flex items-center justify-start space-x-3">
+                    {item.discountPercent >= 10 && item.discountPercent <= 70 ? 
                     <p className="text-sm font-semibold text-amber-700">
-                      MRP: ₹{" "}
+                      ₹
                       <span className="line-through text-amber-800/50">
                         {item.price.toFixed(2)}
                       </span>
-                    </p>
-                    <p className="text-sm font-bold text-primary tracking-wider">
+                    </p> 
+                    : null}
+                    
+                    <p className="font-bold text-primary tracking-wider">
                       ₹{discountedPrice}
                     </p>
-                    <Badge className=" text-[10px]  ml-2 font-semibold">
+                    {item.discountPercent >= 10 && item.discountPercent <= 70 ?
+                     <Badge className=" text-[10px]  ml-2 font-semibold">
                       Save {item.discountPercent}%
                     </Badge>
+                     : null}
+                    
                   </div>
                   <motion.div
                     whileHover={{ scale: 1.05 }}

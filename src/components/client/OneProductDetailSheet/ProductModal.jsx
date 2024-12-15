@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 const ProductModal = ({ slug, onAddToCart }) => {
   const [quantity, setquantity] = useState("");
   const dispatch = useDispatch();
+  
   const { data, loading, error } = useSelector(
     (state) => state.productdetailSlice
   );
@@ -26,10 +27,11 @@ const ProductModal = ({ slug, onAddToCart }) => {
 
   const discountedPrice =
     data?.data?.price - (data?.data?.price * data?.data?.discountPercent) / 100;
+
   return (
-    <div className="flex flex-col p-4 justify-between h-screen pb-10 overflow-y-auto hide-scrollbar space-y-3">
+    <div className="flex flex-col py-5 justify-between hide-scrollbar space-y-3">
       <div className="flex flex-col items-start justify-start space-y-3">
-        <div className="w-full h-72 rounded-lg overflow-hidden shadow-md">
+        <div className="w-full h-72 rounded-lg shadow-md">
           <img
             src={data?.data?.imageUrl}
             alt={data?.data?.name}
@@ -41,18 +43,26 @@ const ProductModal = ({ slug, onAddToCart }) => {
           {data?.data?.description}
         </p>
         <div className="flex items-center justify-start space-x-4">
-          <p className="text-sm font-semibold text-amber-700">
-            MRP: ₹{" "}
-            <span className="line-through text-amber-800/50">
-              {data?.data?.price.toFixed(2)}
-            </span>
-          </p>
-          <p className="text-sm font-bold text-primary tracking-wider">
+
+        {data?.data?.discountPercent >= 10 && data?.data?.discountPercent <= 70 ? 
+        <p className="text-sm font-semibold text-amber-700 text-nowrap">
+        ₹
+        <span className="line-through text-amber-800/50">
+          {data?.data?.price.toFixed(2)}
+        </span>
+      </p> 
+      : null}
+
+          
+          <p className="font-bold text-primary tracking-wider">
             ₹{discountedPrice.toFixed(2)}
           </p>
-          <Badge className=" text-[10px]  ml-2 font-semibold">
+          {data?.data?.discountPercent >= 10 && data?.data?.discountPercent <= 70 ? 
+          <Badge className=" text-[10px]  ml-2 font-semibold text-nowrap">
             Save {data?.data?.discountPercent}%
-          </Badge>
+          </Badge> 
+          : null}
+          
         </div>
 
         <div className="flex gap-x-4 items-center">

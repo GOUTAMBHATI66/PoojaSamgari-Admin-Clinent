@@ -10,8 +10,12 @@ import Counter from "./Counter";
 import ShippingAddress from "../Checkout/ShippingAddress";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { BsCartX } from "react-icons/bs";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
-const CartPage = () => {
+const CartPage = ({onSheetControl}) => {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const { products, status, error } = useSelector((state) => state.cartSlice);
 
@@ -39,7 +43,7 @@ const CartPage = () => {
   return (
     <div className="py-4 flex flex-col justify-between h-screen  pb-10">
       <div className="flex flex-col space-y-6">
-        <div className="flex justify-around items-center space-x-2">
+        <div className="flex justify-around items-center pb-2 space-x-2 border-b mx-4 border-black/50">
           {status === "loading" ? (
             <Skeleton className=" w-14 h-5 " />
           ) : (
@@ -51,9 +55,14 @@ const CartPage = () => {
             </div>
           )}
         </div>
-        {status === "succeeded" && products.length === 0 && (
-          <div className="flex items-center justify-center h-40">
-            <p>Your cart is empty.</p>
+        {products?.length === 0 && (
+          <div className="flex flex-col items-center py-5 ">
+            <BsCartX size={80} color="gray" />
+            <p className=" text-black text-xl font-bold mt-4 ">Hey, It feel so light!.</p>
+            <p className=" text-sm mb-6 ">There is nothing in your cart, Let's add some items.</p>
+            
+            <Button onClick={ onSheetControl }>Return To Shop</Button>
+            
           </div>
         )}
         {status !== "loading" &&
@@ -80,23 +89,31 @@ const CartPage = () => {
                         />
                       </div>
                       <div className="space-y-1">
-                        <h3 className="font-medium sm:text-sm text-xs">
+                        <h3 className="font-medium sm:text-base text-sm">
                           {item.name}
                         </h3>
                         <p className="text-xs text-muted-foreground line-clamp-1">
                           {item.description}
                         </p>
-                        <p className="text-xs">
-                          Price:{" "}
+                        <p className="text-xs space-x-2">
+                          
+                          {item.discountPercent >= 10 && item.discountPercent <= 70 ? 
+                          
                           <span className="line-through text-muted-foreground text-xs">
                             ₹{item.price}
-                          </span>{" "}
-                          <span className="text-primary font-semibold">
+                          </span>
+                          : ""}
+                          <span className="text-primary text-base font-semibold">
                             ₹{discountedPrice}
                           </span>
+
+                          {item.discountPercent >= 10 && item.discountPercent <= 70 ? 
+                          
                           <Badge className=" text-[10px]  ml-2 font-semibold">
                             Save {item.discountPercent}%
                           </Badge>
+                          : ""}
+                          
                         </p>
                       </div>
                     </div>
@@ -119,6 +136,8 @@ const CartPage = () => {
             </div>
           )}
       </div>
+
+      {products?.length > 0 &&
       <div className="mt-6 border-t pt-4 space-y-3 px-6">
         <div className="flex justify-between text-lg font-semibold">
           <span className="font-bold tracking-wider">Total</span>
@@ -127,8 +146,9 @@ const CartPage = () => {
           </span>
         </div>
 
+        
         <ShippingAddress products={products} />
-      </div>
+      </div>}
     </div>
   );
 };

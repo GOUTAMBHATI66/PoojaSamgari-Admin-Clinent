@@ -1,30 +1,32 @@
 import React, { useState } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import ProductModal from "./ProductModal";
-import { FaShoppingCart } from "react-icons/fa";
-
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const OneProductDetailSheet = ({ slug }) => {
-  const [isOpen, setIsOpen] = useState(false);
+
+  // state for open and close a dialog
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleAddToCart = () => {
-
-    setIsOpen(false); 
+    setDialogOpen(false);
   };
 
   return (
     <div>
-      <Sheet open={isOpen} onOpenChange={setIsOpen} >
-        <SheetTrigger
-          className="mt-4 bg-gradient-to-r from-amber-500 to-orange-500  text-white px-4 py-2 rounded-sm text-sm font-semibold w-full flex items-center justify-center"
-          onClick={() => setIsOpen(true)}
-        >
-        Add to Cart <FaShoppingCart className="w-4 h-4 ml-2" />
-        </SheetTrigger>
-        <SheetContent className="max-h-screen" side="left">
-          <ProductModal slug={slug} onAddToCart={handleAddToCart} />
-        </SheetContent>
-      </Sheet>
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogTrigger className="mt-4 bg-gradient-to-r from-amber-500 to-orange-500  text-white px-4 py-2 rounded-sm text-sm font-semibold w-full flex items-center justify-center"
+          onClick={() => setDialogOpen(true)}>Know More</DialogTrigger>
+        <DialogContent  className='p-4'>
+        <ProductModal slug={slug} onAddToCart={handleAddToCart} />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

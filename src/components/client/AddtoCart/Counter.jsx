@@ -39,7 +39,7 @@ const Counter = ({ id, initialQuantity, handleQuantityChange }) => {
       {/* Decrement Button */}
       <button
         onClick={decrement}
-        className="text-xl hover:text-muted-foreground focus:outline-none py-1.5"
+        className={`text-xl hover:text-muted-foreground focus:outline-none py-1.5 ${count <= 1 ? " cursor-default" : ""}`}
       >
         <FaMinus size={16} className={`${count <= 1 ? "text-gray-300" : ""}`} />
       </button>

@@ -14,9 +14,15 @@ const LandingPage = () => {
     <div className="min-h-screen bg-gradient-to-b from-red-200 to-orange-100 flex flex-col items-center justify-center p-4 relative overflow-hidden">
       {/* Background Patterns */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-red-500 opacity-20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-0 w-72 h-72 bg-orange-500 opacity-20 rounded-full blur-3xl"></div>
+        {/* <div className="absolute top-0 left-0 w-96 h-96 bg-red-500 opacity-20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-72 h-72 bg-orange-500 opacity-20 rounded-full blur-3xl"></div> */}
+        <img 
+          src="\LandingPage5.jpg" 
+          className=" w-full h-full object-cover "
+         />
       </div>
+
+      
 
       {/* Main Content */}
       <motion.div
@@ -29,25 +35,33 @@ const LandingPage = () => {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-          className="inline-block p-4 rounded-full bg-primary mb-4"
+          className="inline-block p-4 rounded-full  mb-4"
         >
-          <ShoppingBag className="w-8 h-8 text-primary-foreground" />
+          <img 
+            src=" /logo.png"
+            alt="Company Logo"
+            className="w-20 p-0.5 object-contain"
+           />
+         
         </motion.div>
         <motion.h1
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 "
+          className="font-bold mb-2 "
         >
-          Welcome to ShopHub
+          <p className="text-3xl min-[380px]:text-4xl text-black/80 mr-2 ">Welcome to</p>
+          <p className=" font-serif capitalize text-red-600 text-4xl min-[380px]:text-5xl " >Shree Swastik</p>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="text-gray-600 dark:text-gray-300 mb-8"
+          className="text-[#ff3496] dark:text-gray-500 mb-6 "
         >
-          Your one-stop destination for all things amazing
+          <p>You can get all the items related to puja</p>
+          <p>for all the festival seasons and daily needs.</p>
+                     
         </motion.p>
       </motion.div>
 
