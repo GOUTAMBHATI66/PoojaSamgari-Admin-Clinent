@@ -9,6 +9,7 @@ import { Loader, LucideLogOut } from "lucide-react";
 import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
 import { OrderSkeleton } from "@/components/shared/OrderSkeleton";
+import { FaUserCircle } from "react-icons/fa";
 
 const ProfilePage = () => {
   const UserForm = lazy(() => import("../profile/UserForm"));
@@ -19,11 +20,6 @@ const ProfilePage = () => {
 
   const [showMyOrders, setShowMyOrders] = useState(true);
   const [showShippingAdd, setShowShippingAdd] = useState(false);
-
-  const handleModalSwitch = (type) => {
-    setShowMyOrders(type === "orders");
-    setShowShippingAdd(type === "address");
-  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -42,6 +38,10 @@ const ProfilePage = () => {
             <h2 className=" text-xl text-slate-700 font-semibold mb-2 pb-2 border-b   border-double">
               Your Activity
             </h2>
+            <div className="flex items-center justify-start gap-3">
+              <FaUserCircle size={20} />
+              <p className="text-lg">{authUser.name}</p>
+            </div>
 
             <Button
               size="custome"

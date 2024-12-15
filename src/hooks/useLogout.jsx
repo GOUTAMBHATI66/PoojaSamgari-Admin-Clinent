@@ -14,7 +14,7 @@ const useLogout = () => {
     setisPending(true);
     e.preventDefault();
     try {
-      const { data } = await AxiosBase.post("/auth/logout");
+      const { data } = await AxiosBase.post("/auth/user/logout");
       if (!data.success) throw new Error();
       toast.success(data.message || "Logout Successfully");
       navigate("/");

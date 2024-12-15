@@ -52,7 +52,7 @@ export const ProductDetailsSkeleton = () => {
         <Skeleton className="h-5 w-1/4" />
       </div>
 
-      <div className="p-6">
+      <div className="">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Order Summary */}
           <div className="bg-white p-6 rounded-lg shadow-md">

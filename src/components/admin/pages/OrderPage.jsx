@@ -30,8 +30,7 @@ const OrderPage = () => {
       const { data } = await AxiosBase.get("/api/admin/orders", {
         params: { page, size },
       });
-      if (!data.success)
-        throw new Error(data.message || "Failed to fetch orders.");
+      if (!data.success) throw new Error();
       setOrders(data.data);
       setTotalPages(data.pagination.totalPages || 0);
     } catch (error) {
