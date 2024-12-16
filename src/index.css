@@ -203,3 +203,32 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Hide scrollbar but keep scroll functionality */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+/* Ensure OrderList scrolls but not the parent section */
+.overflow-y-auto {
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+  width: 8px; /* Chrome, Safari */
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 4px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}

@@ -45,14 +45,16 @@ export default function MyOrders() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 h-full flex flex-col">
       <h1 className="text-3xl font-bold text-center mb-8">My Orders</h1>
-      <Tabs defaultValue="all" className="w-full">
-        <TabsList className="grid w-full grid-cols-3 sticky  items-center justify-center top-14 bg-muted border-2 border-secondary   z-50 ">
-          <TabsTrigger value="all">All Orders</TabsTrigger>
-          <TabsTrigger value="pending">Pending</TabsTrigger>
+      <Tabs defaultValue="all" className="flex-1 flex flex-col w-full">
+        <TabsList className="grid w-full grid-cols-3 sticky top-14 bg-muted border-2 border-secondary z-50">
+          <TabsTrigger value="all">All Orders {orders?.length} </TabsTrigger>
+          <TabsTrigger value="pending">Pending {  }</TabsTrigger>
           <TabsTrigger value="completed">Delivered</TabsTrigger>
         </TabsList>
+        <div className="overflow-y-auto hide-scrollbar flex-1 max-h-[calc(100vh-220px)]" >
+
         <TabsContent value="all">
           <OrderList
             orders={orders}
@@ -78,6 +80,7 @@ export default function MyOrders() {
             getStatusColor={getStatusColor}
           />
         </TabsContent>
+        </div>
       </Tabs>
     </div>
   );
@@ -94,16 +97,15 @@ function OrderList({ orders, isLoading, getStatusColor }) {
 
   return (
     <section>
-      <p className="text-muted-foreground text-sm ">Total {orders.length}</p>
-      <div className="space-y-6">
+      <div className="space-y-6 ">
         {orders.map((order) => (
           <Card key={order.id} className="w-full">
             <CardHeader>
-              <CardTitle className="flex justify-between items-center">
-                <span>Order #{order.id}</span>
-                <Badge className={getStatusColor(order.deliveryStatus)}>
+              <CardTitle className="flex justify-between items-center text-sm  sm:text-xl">
+                <span>Order Id: <span>#{order.id}</span> </span>
+                {/* <Badge className={getStatusColor(order.deliveryStatus)}>
                   {order.deliveryStatus}
-                </Badge>
+                </Badge> */}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -147,13 +149,13 @@ function OrderList({ orders, isLoading, getStatusColor }) {
                               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLhnhmcS5dy1pOq9OA6HOI4_jvpc0zKa_4xA&s"
                             }
                             alt={item.product.name}
-                            className="object-cover"
-                            width={64}
-                            height={64}
+                            className="w-full h-full object-cover"
+                            // width={64}
+                            // height={64}
                           />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium truncate">
+                          <p className="text-xs min-[380px]:text-sm font-medium text-wrap  ">
                             {item.product.name}
                           </p>
                           <p className="text-sm text-gray-500">

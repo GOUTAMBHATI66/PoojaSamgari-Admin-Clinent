@@ -111,7 +111,7 @@ export default function ProductForm() {
           <span>
             Discount Percent* (optional)
             <span className="text-xs ml-2 text-muted-foreground">
-              In Percent %
+              (10 - 70)
             </span>
           </span>
           <input

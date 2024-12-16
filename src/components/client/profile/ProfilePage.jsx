@@ -10,11 +10,14 @@ import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
 import { OrderSkeleton } from "@/components/shared/OrderSkeleton";
 import { FaUserCircle } from "react-icons/fa";
+import { RiAdminFill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
   const UserForm = lazy(() => import("../profile/UserForm"));
   const MyOrders = lazy(() => import("../profile/MyOrders"));
 
+  const navigate = useNavigate()
   const { authUser } = useAuth();
   const { isPending, handleLogout } = useLogout();
 
@@ -27,21 +30,44 @@ const ProfilePage = () => {
       <Navbar />
 
       {/* Main Content */}
-      <main className="flex flex-col md:flex-row gap-4 py-6 px-4 container mx-auto">
+      <main className="flex flex-col md:flex-row gap-4 py-6 px-4 container mx-auto border-t border-black/10 mt-2">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className=" h-auto lg:h-[500px] flex flex-col justify-between gap-3 p-4 border-secondary border-2   lg:sticky  top-20  rounded-xl"
+          className=" h-[500px] flex flex-col justify-between gap-3 p-4 border-secondary border-2   lg:sticky  top-20  rounded-xl"
         >
           <div className="flex flex-col gap-4">
-            <h2 className=" text-xl text-slate-700 font-semibold mb-2 pb-2 border-b   border-double">
+            <div className="flex items-center justify-center gap-3 pb-4 border-b border-double">
+              <FaUserCircle size={28} />
+              <p className="text-xl font-semibold">Hello, {authUser.name}</p>
+            </div>
+            <h2 className=" text-lg text-slate-700 font-semibold ">
               Your Activity
             </h2>
-            <div className="flex items-center justify-start gap-3">
-              <FaUserCircle size={20} />
-              <p className="text-lg">{authUser.name}</p>
-            </div>
+
+            {authUser?.isAdmin &&
+            <Button
+              size="custome"
+              variant="secondary"
+              className="flex gap-2 justify-start px-4 items-center border border-black/10 rounded-md relative overflow-hidden group"
+              onClick={() => {
+                navigate("/admin")
+              }}
+            >
+              <RiAdminFill size={20} />
+              <div className="flex flex-col items-start z-10">
+                <p className="text-base font-medium text-start">
+                  Admin
+                </p>
+                <p className="text-xs min-[350px]:text-sm text-gray-600 text-start text-wrap ">
+                  click to visit admin panel
+                </p>
+              </div>
+
+              {/* Hover Animation */}
+              <span className="absolute inset-0 bg-[#cbb0a8ae]  transition-transform transform translate-x-[-100%] group-hover:translate-x-0 z-[-1]"></span>
+            </Button> }
 
             <Button
               size="custome"
@@ -86,9 +112,11 @@ const ProfilePage = () => {
               {/* Hover Animation */}
               <span className="absolute inset-0 bg-[#cbb0a8ae]  transition-transform transform translate-x-[-100%] group-hover:translate-x-0 z-[-1]"></span>
             </Button>
+
+            
           </div>
 
-          <Button variant="secondary" onClick={handleLogout}>
+          <Button variant="ghost" onClick={handleLogout}>
             {isPending ? (
               <Loader className="animate-spin" size={15} />
             ) : (
@@ -100,7 +128,7 @@ const ProfilePage = () => {
 
         {/* Main Content Area */}
         <motion.div
-          className="flex-1"
+          className="flex-1 max-h-[calc(100vh-120px)] overflow-y-auto hide-scrollbar"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -122,8 +150,6 @@ const ProfilePage = () => {
         </motion.div>
       </main>
 
-      {/* Footer */}
-      <Footer />
     </div>
   );
 };
