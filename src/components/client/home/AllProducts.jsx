@@ -43,7 +43,7 @@ const AllProducts = () => {
               item.price -
               (item.price * item.discountPercent) / 100
             ).toFixed(2);
-
+            console.log(item.imageUrl);
             return (
               <motion.div
                 key={item.id}
@@ -54,10 +54,7 @@ const AllProducts = () => {
               >
                 <div className="relative h-72 w-full">
                   <img
-                    src={
-                      item.imageUrl ||
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLhnhmcS5dy1pOq9OA6HOI4_jvpc0zKa_4xA&s"
-                    }
+                    src={item.imageUrl}
                     alt={item.name}
                     className="w-full h-full object-fill bg-center"
                   />

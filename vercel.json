@@ -1,0 +1,20 @@
+{
+    "rewrites": [
+        {
+            "source": "/admin/:path*",
+            "destination": "/"
+        },
+        {
+            "source": "/checkout",
+            "destination": "/"
+        },
+        {
+            "source": "/profile",
+            "destination": "/"
+        },
+        {
+            "source": "/:path*",
+            "destination": "/"
+        }
+    ]
+}
