@@ -48,6 +48,13 @@ const OrderPage = () => {
     fetchOrders();
   }, [page, size]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchOrders();
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <main className="h-full">
       <h2 className="text-primary bg-secondary font-semibold text-xl mb-2 text-center py-1 rounded-sm">

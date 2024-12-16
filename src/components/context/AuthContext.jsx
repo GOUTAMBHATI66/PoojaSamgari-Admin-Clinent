@@ -11,7 +11,6 @@ export const MyProvider = ({ children }) => {
     async function fetchData() {
       try {
         const { data } = await AxiosBase.get("/auth/user/me");
-        console.log(data, "data of the user");
         setAuthUser(data);
       } catch (error) {
         setAuthUser(null);

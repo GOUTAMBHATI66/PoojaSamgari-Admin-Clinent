@@ -76,6 +76,7 @@ const ProductDetailsPage = () => {
       setIsLoading(true);
       const { data } = await AxiosBase.put(`/api/admin/order/update/${id}`, {
         status: newStatus,
+        paymentMethod: orderData.paymentMethod,
       });
       if (!data.success)
         throw new Error(data.message || "Failed to update status.");
