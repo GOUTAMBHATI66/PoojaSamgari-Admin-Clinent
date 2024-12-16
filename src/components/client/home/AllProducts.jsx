@@ -18,7 +18,7 @@ const AllProducts = () => {
     dispatch(fetchallproductsSlice());
   }, [dispatch]);
 
-  if (error) return <p>Error: {error}</p>;
+  if (error) return <p className="text-center p-3 w-full">{error.message}</p>;
 
   return (
     <section className="py-16 px-4 md:px-8 container">
@@ -70,24 +70,25 @@ const AllProducts = () => {
                     {item.description}
                   </p>
                   <div className="flex items-center justify-start space-x-3">
-                    {item.discountPercent >= 10 && item.discountPercent <= 70 ? 
-                    <p className="text-sm font-semibold text-amber-700">
-                      ₹
-                      <span className="line-through text-amber-800/50">
-                        {item.price.toFixed(2)}
-                      </span>
-                    </p> 
-                    : null}
-                    
+                    {item.discountPercent >= 10 &&
+                    item.discountPercent <= 70 ? (
+                      <p className="text-sm font-semibold text-amber-700">
+                        ₹
+                        <span className="line-through text-amber-800/50">
+                          {item.price.toFixed(2)}
+                        </span>
+                      </p>
+                    ) : null}
+
                     <p className="font-bold text-primary tracking-wider">
                       ₹{discountedPrice}
                     </p>
-                    {item.discountPercent >= 10 && item.discountPercent <= 70 ?
-                     <Badge className=" text-[10px]  ml-2 font-semibold">
-                      Save {item.discountPercent}%
-                    </Badge>
-                     : null}
-                    
+                    {item.discountPercent >= 10 &&
+                    item.discountPercent <= 70 ? (
+                      <Badge className=" text-[10px]  ml-2 font-semibold">
+                        Save {item.discountPercent}%
+                      </Badge>
+                    ) : null}
                   </div>
                   {item.stock === 0 ? (
                     <p className="font-bold  text-center my-auto p-3 text-secondary-foreground">

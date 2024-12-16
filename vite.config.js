@@ -1,24 +1,20 @@
 import path from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import svgrPlugin from 'vite-plugin-svgr';
-import reactRefresh from '@vitejs/plugin-react';
+import svgrPlugin from "vite-plugin-svgr";
 
-// https://vite.dev/config/
 export default defineConfig({
-
   build: {
-    outDir: 'dist',
-},
+    outDir: "dist",
+  },
   plugins: [
-    react(),
-    reactRefresh(),
+    react(), // Only use this for React and React Fast Refresh
     svgrPlugin({
-        svgrOptions: {
-            icon: true,
-        },
+      svgrOptions: {
+        icon: true,
+      },
     }),
-],
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -28,7 +24,3 @@ export default defineConfig({
     port: 3000,
   },
 });
-
-
-
-
