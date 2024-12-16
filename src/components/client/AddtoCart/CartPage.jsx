@@ -13,9 +13,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { BsCartX } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/components/context/AuthContext";
 
-const CartPage = ({onSheetControl}) => {
-  const navigate = useNavigate()
+const CartPage = ({ onSheetControl }) => {
+  const { authUser } = useAuth();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { products, status, error } = useSelector((state) => state.cartSlice);
 
@@ -58,11 +60,14 @@ const CartPage = ({onSheetControl}) => {
         {products?.length === 0 && (
           <div className="flex flex-col items-center py-5 ">
             <BsCartX size={80} color="gray" />
-            <p className=" text-black text-xl font-bold mt-4 ">Hey, It feel so light!.</p>
-            <p className=" text-sm mb-6 ">There is nothing in your cart, Let's add some items.</p>
-            
-            <Button onClick={ onSheetControl }>Return To Shop</Button>
-            
+            <p className=" text-black text-xl font-bold mt-4 ">
+              Hey, It feel so light!.
+            </p>
+            <p className=" text-sm mb-6 ">
+              There is nothing in your cart, Let's add some items.
+            </p>
+
+            <Button onClick={onSheetControl}>Return To Shop</Button>
           </div>
         )}
         {status !== "loading" &&
@@ -96,24 +101,26 @@ const CartPage = ({onSheetControl}) => {
                           {item.description}
                         </p>
                         <p className="text-xs space-x-2">
-                          
-                          {item.discountPercent >= 10 && item.discountPercent <= 70 ? 
-                          
-                          <span className="line-through text-muted-foreground text-xs">
-                            ₹{item.price}
-                          </span>
-                          : ""}
+                          {item.discountPercent >= 10 &&
+                          item.discountPercent <= 70 ? (
+                            <span className="line-through text-muted-foreground text-xs">
+                              ₹{item.price}
+                            </span>
+                          ) : (
+                            ""
+                          )}
                           <span className="text-primary text-base font-semibold">
                             ₹{discountedPrice}
                           </span>
 
-                          {item.discountPercent >= 10 && item.discountPercent <= 70 ? 
-                          
-                          <Badge className=" text-[10px]  ml-2 font-semibold">
-                            Save {item.discountPercent}%
-                          </Badge>
-                          : ""}
-                          
+                          {item.discountPercent >= 10 &&
+                          item.discountPercent <= 70 ? (
+                            <Badge className=" text-[10px]  ml-2 font-semibold">
+                              Save {item.discountPercent}%
+                            </Badge>
+                          ) : (
+                            ""
+                          )}
                         </p>
                       </div>
                     </div>
@@ -137,18 +144,26 @@ const CartPage = ({onSheetControl}) => {
           )}
       </div>
 
-      {products?.length > 0 &&
-      <div className="mt-6 border-t pt-4 space-y-3 px-6">
-        <div className="flex justify-between text-lg font-semibold">
-          <span className="font-bold tracking-wider">Total</span>
-          <span className="font-bold tracking-wider text-xl">
-            ₹{totalPrice.toFixed(2)}
-          </span>
+      {products?.length > 0 && (
+        <div className="mt-6 border-t pt-4 space-y-3 px-6">
+          <div className="flex justify-between text-lg font-semibold">
+            <span className="font-bold tracking-wider">Total</span>
+            <span className="font-bold tracking-wider text-xl">
+              ₹{totalPrice.toFixed(2)}
+            </span>
+          </div>
+          {authUser ? (
+            <ShippingAddress products={products} />
+          ) : (
+            <Button
+              onClick={() => navigate("/login")}
+              className="bg-foreground w-full rounded-full py-3 px-4  text-base font-bold text-white hover:bg-red-900 transition-all"
+            >
+              Buy
+            </Button>
+          )}
         </div>
-
-        
-        <ShippingAddress products={products} />
-      </div>}
+      )}
     </div>
   );
 };

@@ -2,8 +2,16 @@ import { motion } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
 import { Button } from "../ui/button";
 import { FcGoogle } from "react-icons/fc";
+import { useAuth } from "../context/AuthContext";
+import { Navigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const LandingPage = () => {
+  const { authUser } = useAuth();
+  if (authUser) {
+    toast.success("You already authenticated");
+    return <Navigate to="/" />;
+  }
   const handleGoogleSignIn = () => {
     window.location.href = `${
       import.meta.env.VITE_API_BACKEND_URL
