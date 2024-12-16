@@ -3,7 +3,6 @@ import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children, adminOnly = false }) => {
   const { authUser, isLoading } = useAuth();
-
   if (isLoading) return <div>Loading...</div>;
 
   if (!authUser) {

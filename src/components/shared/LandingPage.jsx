@@ -16,13 +16,8 @@ const LandingPage = () => {
       <div className="absolute inset-0 pointer-events-none">
         {/* <div className="absolute top-0 left-0 w-96 h-96 bg-red-500 opacity-20 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 right-0 w-72 h-72 bg-orange-500 opacity-20 rounded-full blur-3xl"></div> */}
-        <img 
-          src="\LandingPage5.jpg" 
-          className=" w-full h-full object-cover "
-         />
+        <img src="\LandingPage5.jpg" className=" w-full h-full object-cover " />
       </div>
-
-      
 
       {/* Main Content */}
       <motion.div
@@ -37,12 +32,11 @@ const LandingPage = () => {
           transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
           className="inline-block p-4 rounded-full  mb-4"
         >
-          <img 
+          <img
             src=" /logo.png"
             alt="Company Logo"
             className="w-20 p-0.5 object-contain"
-           />
-         
+          />
         </motion.div>
         <motion.h1
           initial={{ opacity: 0 }}
@@ -50,8 +44,12 @@ const LandingPage = () => {
           transition={{ delay: 0.3 }}
           className="font-bold mb-2 "
         >
-          <p className="text-3xl min-[380px]:text-4xl text-black/80 mr-2 ">Welcome to</p>
-          <p className=" font-serif capitalize text-red-600 text-4xl min-[380px]:text-5xl " >Shree Swastik</p>
+          <p className="text-3xl min-[380px]:text-4xl text-black/80 mr-2 ">
+            Welcome to
+          </p>
+          <p className=" font-serif capitalize text-red-600 text-4xl min-[380px]:text-5xl ">
+            Shree Swastik
+          </p>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0 }}
@@ -59,9 +57,12 @@ const LandingPage = () => {
           transition={{ delay: 0.4 }}
           className="text-[#ff3496] dark:text-gray-500 mb-6 "
         >
-          <p>You can get all the items related to puja</p>
-          <p>for all the festival seasons and daily needs.</p>
-                     
+          <p className=" font-semibold">
+            You can get all the items related to puja
+          </p>
+          <p className="font-semibold ">
+            for all the festival seasons and daily needs.
+          </p>
         </motion.p>
       </motion.div>
 

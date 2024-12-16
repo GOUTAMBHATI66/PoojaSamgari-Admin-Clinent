@@ -70,7 +70,7 @@ const ProductsPage = () => {
         `/api/admin/product/delete/${id}`
       );
       if (!data.success) throw new Error();
-      toast.error("Product deleted")
+      toast.error("Product deleted");
     } catch (error) {
       console.log(error.message);
     }
@@ -116,7 +116,17 @@ const ProductsPage = () => {
                   {product.name}
                 </TableCell>
                 <TableCell>&#8377;{product.price}</TableCell>
-                <TableCell>{product.stock}</TableCell>
+                <TableCell>
+                  {product.stock === 0 ? (
+                    <span className="text-blue-500 animate-pulse">
+                      Out of Stock
+                    </span>
+                  ) : (
+                    <span className="text-md font-semibold">
+                      {product.stock}
+                    </span>
+                  )}
+                </TableCell>
                 <TableCell className="capitalize">{product.category}</TableCell>
                 <TableCell>
                   <div className="flex gap-5  items-center space-x-2">

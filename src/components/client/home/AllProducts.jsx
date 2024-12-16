@@ -89,12 +89,18 @@ const AllProducts = () => {
                      : null}
                     
                   </div>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <OneProductDetailSheet slug={item.slug} />
-                  </motion.div>
+                  {item.stock === 0 ? (
+                    <p className="font-bold  text-center my-auto p-3 text-secondary-foreground">
+                      Out Of Stock
+                    </p>
+                  ) : (
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <OneProductDetailSheet slug={item.slug} />
+                    </motion.div>
+                  )}
                 </div>
               </motion.div>
             );
