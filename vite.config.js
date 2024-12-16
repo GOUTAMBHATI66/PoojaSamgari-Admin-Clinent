@@ -8,7 +8,7 @@ import reactRefresh from '@vitejs/plugin-react';
 export default defineConfig({
 
   build: {
-    outDir: 'build',
+    outDir: 'dist',
 },
   plugins: [
     react(),
