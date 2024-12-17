@@ -18,6 +18,7 @@ import { Loader, LucideLogOut } from "lucide-react";
 import { FaUserCircle } from "react-icons/fa";
 import { useAuth } from "@/components/context/AuthContext";
 import useLogout from "@/hooks/useLogout";
+import { Button } from "@/components/ui/button";
 
 export function AppSidebar() {
   const { authUser } = useAuth();
@@ -105,14 +106,17 @@ export function AppSidebar() {
             </div>
           </SidebarMenuButton>
 
+          
           <SidebarMenuButton onClick={handleLogout}>
             {isPending ? (
               <Loader className="animate-spin" size={15} />
             ) : (
               <LucideLogOut size={16} />
             )}{" "}
+            
             <span>Logout</span>
           </SidebarMenuButton>
+        
         </footer>
       </SidebarContent>
     </Sidebar>

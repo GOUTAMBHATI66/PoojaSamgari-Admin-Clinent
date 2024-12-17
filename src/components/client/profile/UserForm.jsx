@@ -116,20 +116,27 @@ const UserForm = () => {
 
   return (
     <Card className="p-6 w-full border border-black/10 shadow-md">
-      <div className="relative">
-        <h2 className="text-2xl font-semibold text-center text-[#EA580C] mb-4 pb-4 border-b border-black/10  ">
+      <div className="flex items-center justify-between gap-3  mb-4 pb-4 border-b border-black/10 ">
+        <h2 className="text-xl sm:text-2xl font-semibold sm:text-center text-[#EA580C]  ">
           Add Shipping Address
         </h2>
+        {isEdit ? <X
+          size={20}
+          className="cursor-pointer right-0 top-0"
+          onClick={() => setIsEdit(!isEdit)}
+        /> :
+         
         <HoverCard>
-          <HoverCardTrigger className="absolute top-3 right-5">
+          <HoverCardTrigger className="">
             <Pencil
               size={15}
               className="cursor-pointer"
-              onClick={() => setIsEdit(!isEdit)}
+              onClick={() => setIsEdit(true)}
             />
           </HoverCardTrigger>
           <HoverCardContent>Edit User Info</HoverCardContent>
         </HoverCard>
+        }
       </div>
       {loading ? (
         [...Array(6)].map((_, idx) => (
@@ -328,16 +335,11 @@ const UserForm = () => {
             )}
           </div>
           {isEdit && (
-            <div className="col-span-2 flex  items-center justify-center gap-x-5 ">
-              <X
-                size={20}
-                className="cursor-pointer"
-                onClick={() => setIsEdit(!isEdit)}
-              />
-              <Button type="submit" disabled={loading} className="w-full">
+
+              <Button type="submit" disabled={loading} className="w-full col-span-2">
                 {loading ? "Updating..." : "Update Address"}
               </Button>
-            </div>
+           
           )}
         </form>
       )}

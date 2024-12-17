@@ -129,7 +129,7 @@ const CheckoutPage = () => {
   return (
     <main className="container mx-auto  py-8 md:py-12">
       {/* Header with Back Button and Logo */}
-      <header className="flex items-center justify-between border-b  pb-2 sticky top-0 bg-background z-50">
+      <header className="flex items-center justify-between border-b border-black/10  pb-2 sticky top-0 bg-background z-50">
         <button
           onClick={() => navigate(-1)}
           className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-all"
@@ -145,7 +145,7 @@ const CheckoutPage = () => {
         <OrderSummary products={products} status={status} authUser={authUser} />
 
         {/* Payment Section */}
-        <section className="p-6 space-y-6 sticky top-20 self-start  border  rounded-lg">
+        <section className="p-6 space-y-6 sticky top-20 self-start  border border-black/20  rounded-lg">
           <h2 className="text-xl font-bold text-gray-800">Payment Details</h2>
 
           <div className="space-y-4">

@@ -18,10 +18,7 @@ const Dashboard = () => {
       setIsLoading(true)
       const {data} = await AxiosBase.get("/api/admin/dashboard")
       if(!data.success) throw new Error()
-        console.log(data.data)
         setPendingOrder(data.data.pendingOrders)
-        console.log(data?.data?.paymentMethodDistribution[0]?._count?.paymentMethod)
-        console.log(data?.data?.paymentMethodDistribution[1]?._count?.paymentMethod)
         setStatistics(data.data)
     } catch (error) {
       console.log(error.message)
@@ -36,6 +33,26 @@ const Dashboard = () => {
   }, [])
 
   const firstFiveOrders = PendingOrders.slice(0,5)
+
+  function paymentType(paymentType,arrOfPaymentMethods){
+
+    const value =  arrOfPaymentMethods.map((item) => {
+  
+      if(arrOfPaymentMethods?.length === 1){
+  
+        if(item.paymentMethod === paymentType)
+          return item._count.paymentMethod
+        else
+          return 0
+      }
+      else{
+        if(item.paymentMethod === paymentType)
+          return item._count.paymentMethod
+      }
+    })
+  
+    return value[0]
+  }
   
   return ( 
     <>
@@ -67,11 +84,14 @@ const Dashboard = () => {
       <div className="flex gap-2 items-center justify-center px-4">
             <div className=" w-1/2 border-r border-primary my-2"> 
               <h1 className=" text-center text-2xl font-bold my-3">COD</h1>
-              {/* <p className=" text-center text-xl font-semibold">{statistics?.paymentMethodDistribution[0] ? (statistics?.paymentMethodDistribution[0]?._count?.pymentMethod) : 0}</p>  */}
+              <p className=" text-center text-xl font-semibold">
+              {statistics?.paymentMethodDistribution?.length ? paymentType("COD", statistics?.paymentMethodDistribution) : 0}</p>
+              
             </div>
             <div className="w-1/2 my-2">
             <h1 className=" text-center text-2xl font-bold my-3">ONLINE</h1>
-            {/* <p className=" text-center text-xl font-semibold">{statistics?.paymentMethodDistribution[1]?._count.pymentMethod}</p> */}
+            <p className=" text-center text-xl font-semibold">
+            {statistics?.paymentMethodDistribution?.length ? paymentType("ONLINE", statistics?.paymentMethodDistribution) : 0}</p>
             </div>
       </div>
     </div>
@@ -95,6 +115,7 @@ const Dashboard = () => {
 
 
     </div>
+
     </div>
     </section>
   </div> ) }

@@ -63,7 +63,7 @@ const CartPage = ({ onSheetControl }) => {
             <p className=" text-black text-xl font-bold mt-4 ">
               Hey, It feel so light!.
             </p>
-            <p className=" text-sm mb-6 ">
+            <p className=" text-sm mb-6">
               There is nothing in your cart, Let's add some items.
             </p>
 

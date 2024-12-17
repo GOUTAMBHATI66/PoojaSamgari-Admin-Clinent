@@ -1,5 +1,4 @@
 import { lazy, Suspense, useState } from "react";
-import Footer from "../footer/Footer";
 import Navbar from "../navbar/Navbar";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/context/AuthContext";

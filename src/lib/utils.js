@@ -12,7 +12,3 @@ export function formatDate(dateString) {
     day: "numeric",
   });
 }
-
-export function paymentType(paymentMethod,arrOfPaymentMethods){
-
-}

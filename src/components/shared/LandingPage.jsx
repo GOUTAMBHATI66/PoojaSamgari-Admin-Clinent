@@ -66,7 +66,7 @@ const LandingPage = () => {
           className="text-[#ff3496] dark:text-gray-500 mb-6 "
         >
           <p className=" font-semibold">
-            You can get all the items related to puja
+            You can get all the items related to pooja
           </p>
           <p className="font-semibold ">
             for all the festival seasons and daily needs.

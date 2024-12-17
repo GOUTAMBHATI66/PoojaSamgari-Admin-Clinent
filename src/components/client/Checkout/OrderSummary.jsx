@@ -10,7 +10,7 @@ const OrderSummary = ({ products, status, authUser }) => {
 
   return (
     <Card className="p-6 max-w-4xl w-full bg-secondary shadow-lg rounded-lg border border-gray-200">
-      <CardTitle className="text-2xl font-bold text-gray-800 border-b pb-4 mb-4">
+      <CardTitle className="text-2xl font-bold text-gray-800 border-b border-black/20 pb-4 mb-4">
         Order Summary
       </CardTitle>
 
@@ -27,7 +27,7 @@ const OrderSummary = ({ products, status, authUser }) => {
             return (
               <div
                 key={item.id}
-                className="flex items-center justify-between gap-4 border-b py-4"
+                className="flex items-center justify-between gap-4 border-b border-black/20 py-4"
               >
                 <div className="flex items-center gap-4">
                   <img
@@ -45,9 +45,11 @@ const OrderSummary = ({ products, status, authUser }) => {
                     </p>
                     <p className="text-gray-700 font-semibold">
                       ₹{discountedPrice.toFixed(2)}{" "}
+                      {item.discountPercent >= 10 && item.discountPercent <= 70 &&
                       <span className="text-gray-500 line-through text-sm">
                         ₹{item.price.toFixed(2)}
                       </span>
+                      }
                     </p>
                     <p className="text-sm text-gray-600">
                       Quantity: {item.quantity}
