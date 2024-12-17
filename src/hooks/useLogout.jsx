@@ -15,8 +15,7 @@ const useLogout = () => {
     e.preventDefault();
     try {
       const { data } = await AxiosBase.post("/auth/user/logout");
-      if (!data.success) throw new Error();
-      toast.success(data.message || "Logout Successfully");
+      toast.success("Logout Successfully");
       navigate("/");
       setAuthUser(null);
     } catch (error) {
