@@ -113,13 +113,7 @@ const ProfilePage = () => {
             </Button>
           </div>
 
-          <Button
-            variant="ghost"
-            onClick={() => {
-              handleLogout();
-              navigate("/");
-            }}
-          >
+          <Button variant="ghost" onClick={handleLogout}>
             {isPending ? (
               <Loader className="animate-spin" size={15} />
             ) : (

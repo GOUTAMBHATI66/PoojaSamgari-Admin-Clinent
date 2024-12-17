@@ -5,29 +5,33 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const useLogout = () => {
-  const [isPending, setisPending] = useState(false);
-  const { authUser, setAuthUser } = useAuth();
-
+  const [isPending, setIsPending] = useState(false);
+  const { setAuthUser } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async (e) => {
-    setisPending(true);
-    e.preventDefault();
+    if (e) e.preventDefault();
+    setIsPending(true);
+
     try {
       const { data } = await AxiosBase.post("/auth/user/logout");
-      toast.success("Logout Successfully");
-      navigate("/");
-      setAuthUser(null);
+
+      if (data.success) {
+        toast.success("Logout Successfully");
+        setAuthUser(null);
+        navigate("/");
+      } else {
+        throw new Error("Logout failed");
+      }
     } catch (error) {
-      console.error(error);
+      console.error("Error during logout:", error);
+      toast.error("Something went wrong. Please try again.");
     } finally {
-      setisPending(false);
+      setIsPending(false);
     }
   };
 
-  return {
-    isPending,
-    handleLogout,
-  };
+  return { isPending, handleLogout };
 };
+
 export default useLogout;
