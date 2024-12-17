@@ -17,7 +17,7 @@ const ProfilePage = () => {
   const UserForm = lazy(() => import("../profile/UserForm"));
   const MyOrders = lazy(() => import("../profile/MyOrders"));
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { authUser } = useAuth();
   const { isPending, handleLogout } = useLogout();
 
@@ -46,28 +46,27 @@ const ProfilePage = () => {
               Your Activity
             </h2>
 
-            {authUser?.isAdmin &&
-            <Button
-              size="custome"
-              variant="secondary"
-              className="flex gap-2 justify-start px-4 items-center border border-black/10 rounded-md relative overflow-hidden group"
-              onClick={() => {
-                navigate("/admin")
-              }}
-            >
-              <RiAdminFill size={20} />
-              <div className="flex flex-col items-start z-10">
-                <p className="text-base font-medium text-start">
-                  Admin
-                </p>
-                <p className="text-xs min-[350px]:text-sm text-gray-600 text-start text-wrap ">
-                  click to visit admin panel
-                </p>
-              </div>
+            {authUser?.isAdmin && (
+              <Button
+                size="custome"
+                variant="secondary"
+                className="flex gap-2 justify-start px-4 items-center border border-black/10 rounded-md relative overflow-hidden group"
+                onClick={() => {
+                  navigate("/admin");
+                }}
+              >
+                <RiAdminFill size={20} />
+                <div className="flex flex-col items-start z-10">
+                  <p className="text-base font-medium text-start">Admin</p>
+                  <p className="text-xs min-[350px]:text-sm text-gray-600 text-start text-wrap ">
+                    click to visit admin panel
+                  </p>
+                </div>
 
-              {/* Hover Animation */}
-              <span className="absolute inset-0 bg-[#cbb0a8ae]  transition-transform transform translate-x-[-100%] group-hover:translate-x-0 z-[-1]"></span>
-            </Button> }
+                {/* Hover Animation */}
+                <span className="absolute inset-0 bg-[#cbb0a8ae]  transition-transform transform translate-x-[-100%] group-hover:translate-x-0 z-[-1]"></span>
+              </Button>
+            )}
 
             <Button
               size="custome"
@@ -112,11 +111,15 @@ const ProfilePage = () => {
               {/* Hover Animation */}
               <span className="absolute inset-0 bg-[#cbb0a8ae]  transition-transform transform translate-x-[-100%] group-hover:translate-x-0 z-[-1]"></span>
             </Button>
-
-            
           </div>
 
-          <Button variant="ghost" onClick={handleLogout}>
+          <Button
+            variant="ghost"
+            onClick={() => {
+              handleLogout();
+              navigate("/");
+            }}
+          >
             {isPending ? (
               <Loader className="animate-spin" size={15} />
             ) : (
@@ -149,7 +152,6 @@ const ProfilePage = () => {
           )}
         </motion.div>
       </main>
-
     </div>
   );
 };
