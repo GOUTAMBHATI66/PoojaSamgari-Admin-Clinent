@@ -15,7 +15,8 @@ const Home = () => {
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4">
           <div className="absolute inset-0 z-0">
             <img
-              src="https://i.pinimg.com/736x/22/8f/c1/228fc1d81f89f58c5f1e93ade657cb3b.jpg"
+              // src="https://i.pinimg.com/736x/22/8f/c1/228fc1d81f89f58c5f1e93ade657cb3b.jpg"
+              src="/hometop.jpg"
               alt="Background Mandala"
               className="w-full h-full object-cover opacity-10"
             />
@@ -118,7 +119,8 @@ const Home = () => {
         <section className="py-16 px-4 md:px-8 relative overflow-hidden">
           <div className="absolute inset-0 z-0">
             <img
-              src="https://img.freepik.com/free-vector/background-template-design-with-mandala-patterns_1308-42779.jpg?ga=GA1.1.330176579.1710230107&semt=ais_hybrid"
+              // src="https://img.freepik.com/free-vector/background-template-design-with-mandala-patterns_1308-42779.jpg?ga=GA1.1.330176579.1710230107&semt=ais_hybrid"
+              src="/homebottom.avif"
               alt="Background Mandala"
               className="w-full h-full object-cover opacity-5"
             />
